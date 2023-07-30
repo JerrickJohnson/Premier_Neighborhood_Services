@@ -9,24 +9,25 @@ import Image from "react-image";
 function App() {
   return (
     <Image
-      src="./public/images/soap.jpg"
+      src="../public/images/soaps.jpg"
       alt="image"
       loader={<div>Loading...</div>}
       unloader={<div>Error!</div>}
     >
       {(props) => (
         <div style={{ position: "relative" }}>
-          <img {...props} alt="image2" />
+          {/* <img {...props} alt="image" /> */}
           <div
             style={{
               position: "absolute",
-              top: "50%",
+              top: "60%",
               left: "50%",
               transform: "translate(-50%, -50%)",
             }}
           >
-            Text on Image
+            <h1>Services</h1>
           </div>
+          
         </div>
       )}
     </Image>
