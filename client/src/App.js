@@ -18,6 +18,7 @@ import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 import Services from './pages/Services';
+import Services from './pages/Services';
 
 import Marketplace from './pages/Marketplace';
 
@@ -48,43 +49,39 @@ function App() {
           <StoreProvider>
             <Nav />
             <Routes>
-  <Route 
-    path="/" 
-    element={<Home />} 
-  />
-  <Route 
-    path="/login" 
-    element={<Login />} 
-  />
-  <Route 
-    path="/signup" 
-    element={<Signup />} 
-  />
-  <Route 
-    path="/success" 
-    element={<Success />} 
-  />
-  <Route 
-    path="/orderHistory" 
-    element={<OrderHistory />} 
-  />
-  <Route 
-    path="/marketplace"
-    element={<Marketplace />} 
-  />
-  <Route 
-    path="/products/:id" 
-    element={<Detail />} 
-  />
-  <Route
-    path="/services"
-    element={<Services />}
-  />
-  <Route 
-    path="*" 
-    element={<NoMatch />} 
-  />
-</Routes>
+              <Route 
+                path="/" 
+                element={<Home />} 
+              />
+              <Route 
+                path="/login" 
+                element={<Login />} 
+              />
+              <Route 
+                path="/signup" 
+                element={<Signup />} 
+              />
+              <Route 
+                path="/success" 
+                element={<Success />} 
+              />
+              <Route 
+                path="/orderHistory" 
+                element={<OrderHistory />} 
+              />
+              <Route 
+                path="/products/:id" 
+                element={<Detail />} 
+              />
+              <Route 
+                path="*" 
+                element={<NoMatch />} 
+              />
+              <Route
+                path="/services"
+                element={<Services />}
+              />
+            </Routes>
           </StoreProvider>
         </div>
       </Router>
