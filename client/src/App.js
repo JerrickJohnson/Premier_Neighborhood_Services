@@ -17,6 +17,7 @@ import Nav from './components/Nav';
 import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
+import Services from './pages/Services';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -72,6 +73,10 @@ function App() {
               <Route 
                 path="*" 
                 element={<NoMatch />} 
+              />
+              <Route
+                path="/services"
+                element={<Services />}
               />
             </Routes>
           </StoreProvider>
