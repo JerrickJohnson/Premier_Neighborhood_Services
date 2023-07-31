@@ -1,15 +1,20 @@
 import React from "react";
 import { Dropdown, RenderImage } from "../components/Services";
-// import { Link } from "react-router-dom";
 
-// import { useQuery } from "@apollo/client";
-// import { QUERY_USER } from "../utils/queries";
-
-// import Image from "react-image";
 
 function App() {
+
+    const style = {
+        backgroundColor: "grey",
+        height: "100px",
+      };
+      const mediaQuery = "(min-width: 768px)";
+
+      if (window.matchMedia(mediaQuery).matches) {
+        style.height = "200px";
+      }
     return (
-      <div style={{ backgroundColor: "grey", height: "100px" }}>
+      <div style={{ style }}>
         <Dropdown
           options={["Plumbing", "Electrical", "HVAC", "Carpentry", "Painting"] }
           style ={{backgroundColor: "orange", height: "100px", width: "200px" }}
