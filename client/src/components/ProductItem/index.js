@@ -60,17 +60,17 @@ function ProductItem(item) {
   // );
 
   return (
-    <div classname="card mb-3" style={{width: '80%', marginBottom: '20px', border: '1px solid #ccc', padding: '10px'}}>
-  <div classname="row g-0">
-    <div classname="col-md-4">
-      <img src={`/images/${image}`} class="img-fluid rounded-start" alt={name}></img>
+    <div className="card mb-3" style={{width: '80%', marginBottom: '20px', border: '1px solid #ccc', padding: '10px'}}>
+  <div className="row g-0">
+    <div className="col-md-4">
+      <img src={`/images/${image}`} className="img-fluid rounded-start" alt={name}></img>
     </div>
-    <div classname="col-md-8">
-      <div classname="card-body">
-        <h5 classname="card-title">{name}</h5>
-        <p classname="card-text">{description}</p>
-        <p classname="card-text">{quantity} {pluralize("item", quantity)} available</p>
-        <p classname="card-text"><small class="text-body-secondary">${price}</small></p>
+    <div className="col-md-8">
+      <div className="card-body">
+        <h5 className="card-title">{name}</h5>
+        <p className="card-text">{description}</p>
+        <p className="card-text">{quantity} {pluralize("item", quantity)} available</p>
+        <p className="card-text"><small className="text-body-secondary">${price}</small></p>
         <button onClick={addToCart}>Buy Item</button>
       </div>
     </div>
