@@ -34,6 +34,14 @@ const typeDefs = gql`
     session: ID
   }
 
+  type Payment {
+    _id: ID
+    paidBy: String
+    amount: Float
+    status: String
+    paymentDate: String
+  }
+
   type Auth {
     token: ID
     user: User
@@ -63,6 +71,7 @@ const typeDefs = gql`
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
+    addPayment(paidBy: String!, amount: Float!): Payment
   }
 `;
 

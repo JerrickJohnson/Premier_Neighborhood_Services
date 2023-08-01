@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Product, Category, Order } = require('../models');
+const { User, Product, Category, Message, Payment } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -54,12 +54,10 @@ const resolvers = {
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
-      await new Order({ products: args.products });
+      const order = await new Order({ products: args.products });
       const line_items = [];
 
-      // eslint-disable-next-line no-restricted-syntax
       for (const product of args.products) {
-        // Create a line item for each product
         line_items.push({
           price_data: {
             currency: 'usd',
@@ -84,6 +82,12 @@ const resolvers = {
 
       return { session: session.id };
     },
+    messages: async (parent, { senderId, receiverId }) => {
+      return await Message.find({ sender: senderId, receiver: receiverId });
+    },
+    payments: async (parent, { userId }) => {
+      return await Payment.find({ paidBy: userId });
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -93,7 +97,6 @@ const resolvers = {
       return { token, user };
     },
     addOrder: async (parent, { products }, context) => {
-      console.log(context);
       if (context.user) {
         const order = new Order({ products });
 
@@ -132,7 +135,28 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
-    }
+    },
+    addMessage: async (parent, { senderId, receiverId, messageText }, context) => {
+      if (context.user) {
+        const message = new Message({ sender: senderId, receiver: receiverId, messageText });
+
+        await message.save();
+
+        return message;
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
+    addPayment: async (parent, { paidBy, amount }, context) => {
+      if (context.user) {
+        const payment = new Payment({ paidBy, amount, status: 'completed', paymentDate: new Date().toISOString() });
+
+        await payment.save();
+
+        return payment;
+      }
+      throw new AuthenticationError('Not logged in');
+    },
   }
 };
 
