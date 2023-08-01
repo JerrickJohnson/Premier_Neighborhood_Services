@@ -47,12 +47,13 @@ function ProductList() {
     <div className="my-2">
       <h2>Our Products:</h2>
       {state.products.length ? (
-        <div className="flex-row">
+        <div>
           {filterProducts().map((product) => (
             <ProductItem
               key={product._id}
               _id={product._id}
               image={product.image}
+              description={product.description}
               name={product.name}
               price={product.price}
               quantity={product.quantity}
@@ -65,6 +66,33 @@ function ProductList() {
       {loading ? <img src={spinner} alt="loading" /> : null}
     </div>
   );
+  // return (
+  //   <div className="container">
+  //     <div className="my-2">
+  //       <h2>Our Products:</h2>
+  //       {state.products.length ? (
+  //         <div className="row row-cols-1 row-cols-md-3"> {/* Use row-cols-md-3 to create a 3-column layout on medium-sized screens */}
+  //           {filterProducts().map((product) => (
+  //             <div key={product._id} className="col"> {/* Use col to make the card stretch horizontally */}
+  //               <ProductItem
+  //                 _id={product._id}
+  //                 image={product.image}
+  //                 description={product.description}
+  //                 name={product.name}
+  //                 price={product.price}
+  //                 quantity={product.quantity}
+  //               />
+  //             </div>
+  //           ))}
+  //         </div>
+  //       ) : (
+  //         <h3>You haven't added any products yet!</h3>
+  //       )}
+  //       {loading ? <img src={spinner} alt="loading" /> : null}
+  //     </div>
+  //   </div>
+  // );
+
 }
 
 export default ProductList;

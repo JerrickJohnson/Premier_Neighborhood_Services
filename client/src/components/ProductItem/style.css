@@ -1,0 +1,6 @@
+/* productItem.css */
+.product-image {
+    height: 40%;
+    width: fit-content;
+    object-fit: cover;
+  }
