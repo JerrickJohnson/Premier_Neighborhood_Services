@@ -54,16 +54,16 @@ const typeDefs = gql`
   type Event {
     _id: ID
     name: String
-    date: Date
+    date: String
     description: String
-    attendees: Number
+    attendees: Int
     comments: [Comment]
   }
 
   type Review {
     _id: ID
     reviewText: String
-    rating: Number
+    rating: Int
     user: User
     service: Service
   }
@@ -71,7 +71,7 @@ const typeDefs = gql`
   type Service {
     _id: ID
     name: String
-    rating: Number
+    rating: Int
     reviews: [Review]
     category: String
     image: String
