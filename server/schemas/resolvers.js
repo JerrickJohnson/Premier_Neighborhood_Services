@@ -123,11 +123,13 @@ const resolvers = {
     },
     addComment: async (parent, { eventId, commentText }, context) => {
       if (context.user) {
+        const comment = await Comment.create({ commentText, username: context.user._id, eventId });
+
         const updatedEvent = await Event.findOneAndUpdate(
           { _id: eventId },
-          { $push: { comments: { commentText, username: context.user._id } } },
-          { new: true, runValidators: true }
-        );
+          { $push: { comments: comment._id } },
+          { new: true }
+        ).populate('comments');
 
         return updatedEvent;
       }
@@ -136,9 +138,11 @@ const resolvers = {
     },
     addReview: async (parent, { serviceId, reviewText, rating }, context) => {
       if (context.user) {
+        const review = await Review.create({ reviewText, rating, username: context.user._id, serviceId });
+
         const updatedService = await Service.findOneAndUpdate(
           { _id: serviceId },
-          { $push: { reviews: { reviewText, rating, username: context.user._id } } },
+          { $push: { reviews: review._id } },
           { new: true, runValidators: true }
         );
 

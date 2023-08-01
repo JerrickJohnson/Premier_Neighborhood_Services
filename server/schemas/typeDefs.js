@@ -6,6 +6,13 @@ const typeDefs = gql`
     name: String
   }
 
+  type Comment {
+    _id: ID
+    commentText: String
+    author: User
+    event: Event
+  }
+
   type Product {
     _id: ID
     name: String
@@ -14,6 +21,8 @@ const typeDefs = gql`
     quantity: Int
     price: Float
     category: Category
+    createdBy: User
+    PurchasedBy: User
   }
 
   type Order {
@@ -28,6 +37,9 @@ const typeDefs = gql`
     lastName: String
     email: String
     orders: [Order]
+    address: String
+    outstandingDues: Float
+    paidDues: Float
   }
 
   type Checkout {
@@ -37,6 +49,32 @@ const typeDefs = gql`
   type Auth {
     token: ID
     user: User
+  }
+
+  type Event {
+    _id: ID
+    name: String
+    date: Date
+    description: String
+    attendees: Number
+    comments: [Comment]
+  }
+
+  type Review {
+    _id: ID
+    reviewText: String
+    rating: Number
+    user: User
+    service: Service
+  }
+
+  type Service {
+    _id: ID
+    name: String
+    rating: Number
+    reviews: [Review]
+    category: String
+    image: String
   }
 
   input ProductInput {
