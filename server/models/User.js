@@ -28,7 +28,7 @@ const userSchema = new Schema({
   orders: [Order.schema],
   address: {
     type: String,
-    required: true,
+    // required: true, Uncomment this when the page has been implemented
   },
   outstandingDues: {
     type: Number,
