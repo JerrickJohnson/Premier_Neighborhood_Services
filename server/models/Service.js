@@ -23,6 +23,9 @@ const serviceSchema = new Schema({
         required: true,
         trim: true
     },
+    image: {
+        type: String
+    },
 });
 
 const Service = mongoose.model('Service', serviceSchema);
