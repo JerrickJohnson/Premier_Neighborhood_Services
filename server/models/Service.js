@@ -14,9 +14,15 @@ const serviceSchema = new Schema({
         min: 1,
         max: 5
     },
-    review: {
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Review',
+    }],
+    category: {
         type: String,
-    }
+        required: true,
+        trim: true
+    },
 });
 
 const Service = mongoose.model('Service', serviceSchema);
