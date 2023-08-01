@@ -48,43 +48,43 @@ function App() {
           <StoreProvider>
             <Nav />
             <Routes>
-  <Route 
-    path="/" 
-    element={<Home />} 
-  />
-  <Route 
-    path="/login" 
-    element={<Login />} 
-  />
-  <Route 
-    path="/signup" 
-    element={<Signup />} 
-  />
-  <Route 
-    path="/success" 
-    element={<Success />} 
-  />
-  <Route 
-    path="/orderHistory" 
-    element={<OrderHistory />} 
-  />
-  <Route 
-    path="/marketplace"
-    element={<Marketplace />} 
-  />
-  <Route 
-    path="/products/:id" 
-    element={<Detail />} 
-  />
-  <Route
-    path="/services"
-    element={<Services />}
-  />
-  <Route 
-    path="*" 
-    element={<NoMatch />} 
-  />
-</Routes>
+              <Route 
+                path="/" 
+                element={<Home />} 
+              />
+              <Route 
+                path="/login" 
+                element={<Login />} 
+              />
+              <Route 
+                path="/signup" 
+                element={<Signup />} 
+              />
+              <Route 
+                path="/success" 
+                element={<Success />} 
+              />
+              <Route 
+                path="/orderHistory" 
+                element={<OrderHistory />} 
+              />
+              <Route 
+                path="/marketplace"
+                element={<Marketplace />} 
+              />
+              <Route 
+                path="/products/:id" 
+                element={<Detail />} 
+              />
+              <Route 
+                path="*" 
+                element={<NoMatch />} 
+              />
+              <Route
+                path="/services"
+                element={<Services />}
+              />
+            </Routes>
           </StoreProvider>
         </div>
       </Router>
