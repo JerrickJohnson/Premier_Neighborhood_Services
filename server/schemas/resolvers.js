@@ -86,10 +86,21 @@ const resolvers = {
     },
   },
   Mutation: {
-    addUser: async (parent, args) => {
-      const user = await User.create(args);
+    addUser: async (parent, { firstName, lastName, email, password, address, dob, phoneNumber, emergencyContact, emergencyContactPhoneNumber }) => {
+      const user = await User.create({
+        firstName,
+        lastName,
+        email,
+        password,
+        address,
+        dob,
+        phoneNumber,
+        emergencyContact,
+        emergencyContactPhoneNumber
+      });
+      
       const token = signToken(user);
-
+    
       return { token, user };
     },
     addOrder: async (parent, { products }, context) => {
