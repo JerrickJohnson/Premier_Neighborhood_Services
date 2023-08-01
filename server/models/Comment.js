@@ -13,16 +13,10 @@ const commentSchema = new Schema({
         ref: 'User',
         required: true
     },
-    service: {
+    event: {
         type: Schema.Types.ObjectId,
-        ref: 'Service',
+        ref: 'Event',
         required: true
-    },
-    rating: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 5
     }
 });
 
