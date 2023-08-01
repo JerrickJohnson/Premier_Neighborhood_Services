@@ -13,6 +13,13 @@ function Nav() {
               Order History
             </Link>
           </li>
+
+          <li className="mx-1">
+            <Link to="/marketplace">
+              Marketplace
+            </Link>
+          </li>
+          
         {/* added services button link */}
           <li className="mx-1">
             <Link to="/services">
