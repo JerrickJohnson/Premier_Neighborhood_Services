@@ -25,7 +25,21 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
-  orders: [Order.schema]
+  orders: [Order.schema],
+  address: {
+    type: String,
+    required: true,
+  },
+  outstandingDues: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
+  paidDues: {
+    type: Number,
+    min: 0,
+    default: 0,
+  }
 });
 
 // set up pre-save middleware to create password
