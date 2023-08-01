@@ -14,18 +14,20 @@ db.once('open', async () => {
   ]);
 
   console.log('categories seeded');
+  
+  console.log(categories);
 
   await User.deleteMany();
 
-  const users = await User.insertMany([
-    {
+  const users = await User.create({
     firstName: 'Admin',
     lastName: 'Admin',
     email: 'admin@premierns.com',
     password: 'admin1234',
     address: '100 Main Street',
-    }
-  ]);
+  });
+
+  console.log(users);
 
   await Product.deleteMany();
 
@@ -38,7 +40,7 @@ db.once('open', async () => {
       category: categories[0]._id,
       price: 2.99,
       quantity: 500,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Canned Coffee',
@@ -48,7 +50,7 @@ db.once('open', async () => {
       category: categories[0]._id,
       price: 1.99,
       quantity: 500,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Toilet Paper',
@@ -58,7 +60,7 @@ db.once('open', async () => {
       image: 'toilet-paper.jpg',
       price: 7.99,
       quantity: 20,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Handmade Soap',
@@ -68,7 +70,7 @@ db.once('open', async () => {
       image: 'soap.jpg',
       price: 3.99,
       quantity: 50,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Set of Wooden Spoons',
@@ -78,7 +80,7 @@ db.once('open', async () => {
       image: 'wooden-spoons.jpg',
       price: 14.99,
       quantity: 100,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Camera',
@@ -88,7 +90,7 @@ db.once('open', async () => {
       image: 'camera.jpg',
       price: 399.99,
       quantity: 30,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Tablet',
@@ -98,7 +100,7 @@ db.once('open', async () => {
       image: 'tablet.jpg',
       price: 199.99,
       quantity: 30,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Tales at Bedtime',
@@ -108,7 +110,7 @@ db.once('open', async () => {
       image: 'bedtime-book.jpg',
       price: 9.99,
       quantity: 100,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Spinning Top',
@@ -117,7 +119,7 @@ db.once('open', async () => {
       image: 'spinning-top.jpg',
       price: 1.99,
       quantity: 1000,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Set of Plastic Horses',
@@ -127,7 +129,7 @@ db.once('open', async () => {
       image: 'plastic-horses.jpg',
       price: 2.99,
       quantity: 1000,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Teddy Bear',
@@ -137,7 +139,7 @@ db.once('open', async () => {
       image: 'teddy-bear.jpg',
       price: 7.99,
       quantity: 100,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
     {
       name: 'Alphabet Blocks',
@@ -147,7 +149,7 @@ db.once('open', async () => {
       image: 'alphabet-blocks.jpg',
       price: 9.99,
       quantity: 600,
-      createdBy: users[0]._id
+      createdBy: users._id
     },
   ]);
 
@@ -172,6 +174,8 @@ db.once('open', async () => {
         rating: 4.3,
   }
   ]);
+
+  console.log('services seeded');
 
   await User.create({
     firstName: 'Pamela',
