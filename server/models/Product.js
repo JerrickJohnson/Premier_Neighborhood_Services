@@ -28,14 +28,6 @@ const productSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true
-  },
-  createdBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  purchasedBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
   }
 });
 
