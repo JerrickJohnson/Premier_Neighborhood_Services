@@ -19,7 +19,6 @@ import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 import Services from './pages/Services';
 import Events from './pages/Events';
-
 import Marketplace from './pages/Marketplace';
 
 const httpLink = createHttpLink({

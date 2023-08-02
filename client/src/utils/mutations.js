@@ -60,45 +60,6 @@ export const ADD_USER = gql`
   }
 `;
 
-export const UPDATE_EVENTS = gql`
-  mutation updateEvents(
-    $eventId: ID!
-    $name: String!
-    $description: String!
-    $date: String!
-    $location: String!
-    $host: String!
-    $attendees: String
-    $isPublic: Boolean
-    $likes: Int
-    $comments: String
-  ) {
-    updateEvents(
-      eventId: $eventId
-      name: $name
-      description: $description
-      date: $date
-      location: $location
-      host: $host
-      attendees: $attendees
-      isPublic: $isPublic
-      likes: $likes
-      comments: $comments
-    ) {
-      _id
-      name
-      description
-      date
-      location
-      host
-      attendees
-      isPublic
-      likes
-      comments
-    }
-  }
-`;
-
 export const ADD_EVENT = gql`
   mutation addEvent(
     $name: String!

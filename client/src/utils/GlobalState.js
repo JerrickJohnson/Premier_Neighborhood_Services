@@ -6,7 +6,7 @@ import React, { createContext, useContext } from 'react';
 // TODO: Add a comment describing the React hook that `useProductReducer` makes use of
 // Your comment here
 
-import { useProductReducer } from './reducers';
+import { useProductReducer, useEventReducer } from './reducers';
 
 // TODO: Add a comment briefly describing what `createContext` does and what it returns
 // Your comment here
@@ -22,6 +22,7 @@ const StoreProvider = ({ value = [], ...props }) => {
     cartOpen: false,
     categories: [],
     currentCategory: '',
+    events: [],
   });
 
   // TODO: Add a comment explaining why we passed a `value` attribute to the `Provider`

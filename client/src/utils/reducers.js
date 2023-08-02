@@ -81,12 +81,6 @@ export const reducer = (state, action) => {
         currentCategory: action.currentCategory
       };
 
-    case UPDATE_EVENTS:
-      return {
-        ...state,
-        events: [...action.events],
-      };
-
     default:
       return state;
   }
