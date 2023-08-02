@@ -1,17 +1,33 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
-  username: String,
-  review: String,
-  rating: Number,
-}, { timestamps: true });
+  username: {
+    type: String,
+  },
+  review: {
+    type: String,
+  },
+  rating: {
+    type: Number,
+  },
+  // timestamps: true 
+});
 
 const serviceSchema = new Schema({
-  businessName: String,
-  address: String,
-  phoneNumber: String,
-  rating: Number,
+  businessName: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  phoneNumber: {
+    type: String,
+  },
+  rating: {
+    type: Number
+  },
   reviews: [reviewSchema],
   category: { 
     type: Schema.Types.ObjectId, 

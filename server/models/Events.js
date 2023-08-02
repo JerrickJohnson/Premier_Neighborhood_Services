@@ -2,20 +2,48 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-  username: String,
-  comment: String,
-  likes: { type: Number, default: 0 },
-}, { timestamps: true });
+  username: {
+    type: String,
+  },
+  comment: {
+    type: String,
+  },
+  likes: {
+    type: Number, 
+    default: 0 
+  },
+  // timestamps: true 
+});
 
 const eventSchema = new Schema({
-  name: String,
-  description: String,
-  date: Date,
-  location: String,
-  host: { type: Schema.Types.ObjectId, ref: 'User' },
-  attendees: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  isPublic: { type: Boolean, default: true },
-  likes: { type: Number, default: 0 },
+  name: {
+    type: String,
+  },
+  description: {
+    type: String,
+  },
+  date: {
+    type: Date,
+  },
+  location: {
+    type: String,
+  },
+  host: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'User'
+  },
+  attendees: [{ 
+    type: Schema.Types.ObjectId, 
+    ref: 'User' 
+  }],
+  isPublic: { 
+    type: Boolean, 
+    default: true 
+  },
+  likes: { 
+    type: Number, 
+    default: 0 
+  },
   comments: [commentSchema],
 });
 
