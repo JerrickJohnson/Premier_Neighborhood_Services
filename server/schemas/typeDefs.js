@@ -56,12 +56,16 @@ const typeDefs = gql`
     user: User
   }
 
-  type Event {
+  type Events {
     _id: ID
     name: String
-    date: String
     description: String
-    attendees: Int
+    date: String
+    location: String
+    host: User
+    attendees: [User]
+    isPublic: Boolean
+    likes: Int
     comments: [Comment]
   }
 

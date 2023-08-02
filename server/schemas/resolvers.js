@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Product, Category, Order, Service, Comment, Event, Review } = require('../models');
+const { User, Product, Category, Order, Service, Events, Review } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -85,7 +85,7 @@ const resolvers = {
       return { session: session.id };
     },
     events: async () => {
-      return await Event.find().populate('comment');
+      return await Events.find().populate('comment');
     },
     services: async () => {
       return await Service.find().populate('review');
@@ -173,7 +173,7 @@ const resolvers = {
       const decrement = Math.abs(quantity) * -1;
 
       return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
-    },
+    },  
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
