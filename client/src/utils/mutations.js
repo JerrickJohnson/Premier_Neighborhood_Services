@@ -33,19 +33,20 @@ export const ADD_PRODUCT = gql`
   mutation addProduct($products: [ID]!) {
     addProduct(products: $products) {
       products {
-        _id: ID
-        name: String
-        description: String
-        image: String
-        price: Float
-        quantity: Int
-        category: {
-          name: String
+        _id
+        name
+        description
+        images
+        price
+        quantity
+        category {
+          name
         }
         seller {
-          _id: ID
+          _id
       }
-    }
+     }
+   }
   }
 `;
 
