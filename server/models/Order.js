@@ -6,17 +6,17 @@ const orderSchema = new Schema({
   product: {
     type: Schema.Types.ObjectId,
     ref: 'Product',
-    required: true
+    // required: true
   },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    // required: true
   },
   purchaseDate: {
     type: Date,
     default: Date.now,
-    required: true
+    // required: true
   }
 });
 
