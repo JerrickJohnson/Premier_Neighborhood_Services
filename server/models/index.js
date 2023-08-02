@@ -2,9 +2,10 @@ const User = require('./User');
 const Product = require('./Product');
 const Category = require('./Category');
 const Order = require('./Order');
-const Comment = require('./Comment');
-const Event = require('./Event');
+const Message = require('./Message');
+const Payment = require('./Payment');
 const Service = require('./Service');
-const Review = require('./Review');
+const ServiceCategory = require('./ServiceCategory');
+const Events = require('./Events');
 
-module.exports = { User, Product, Category, Order, Comment, Event, Service, Review };
+module.exports = { User, Product, Category, Order, Message, Payment, Service, ServiceCategory, Events };

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const Order = require('./Order');
@@ -26,20 +25,36 @@ const userSchema = new Schema({
     minlength: 5
   },
   orders: [Order.schema],
+  dues: {
+    type: Number,
+    default: 0,
+  },
+  profileImage: {
+    type: String,
+    default: ''
+  },
   address: {
     type: String,
-    // required: true, Uncomment this when the page has been implemented
+    required: false, //update to true later
   },
-  outstandingDues: {
-    type: Number,
-    min: 0,
-    default: 0,
+  dateOfBirth: {
+    type: Date,
+    required: false, //update to true later
   },
-  paidDues: {
-    type: Number,
-    min: 0,
-    default: 0,
-  }
+  phoneNumber: {
+    type: String,
+    required: false, //update to true later
+  },
+  emergencyContact: {
+    name: {
+      type: String,
+      required: false, //update to true later
+    },
+    phone: {
+      type: String,
+      required: false, //update to true later
+    },
+  },
 });
 
 // set up pre-save middleware to create password

@@ -29,14 +29,9 @@ const productSchema = new Schema({
     ref: 'Category',
     required: true
   },
-  createdBy: {
+  seller: {  
     type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  PurchasedBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'User'
   }
 });
 

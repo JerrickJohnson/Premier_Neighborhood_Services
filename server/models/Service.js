@@ -1,31 +1,23 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
+const Schema = mongoose.Schema;
+
+const reviewSchema = new Schema({
+  username: String,
+  review: String,
+  rating: Number,
+}, { timestamps: true });
 
 const serviceSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    rating: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 5
-    },
-    reviews: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Review',
-    }],
-    category: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    image: {
-        type: String
-    },
+  businessName: String,
+  address: String,
+  phoneNumber: String,
+  rating: Number,
+  reviews: [reviewSchema],
+  category: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'ServiceCategory' 
+  }
 });
 
 const Service = mongoose.model('Service', serviceSchema);
