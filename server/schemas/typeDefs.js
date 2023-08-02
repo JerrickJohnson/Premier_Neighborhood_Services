@@ -37,7 +37,6 @@ const typeDefs = gql`
     lastName: String
     email: String
     password: String
-    address: String
     dob: String
     phoneNumber: String
     emergencyContact: String
@@ -127,6 +126,10 @@ const typeDefs = gql`
       emergencyContactPhoneNumber: String
     ): User
     addOrder(products: [ID]!): Order
+    addEvent(name: String!, date: String!, description: String!, attendees: Int!): Event
+    addComment(eventId: ID!, commentText: String!): Event
+    addReview(reviewText: String!, rating: Int!, service: ID!): Service
+    addService(name: String!, rating: Int!, category: String!, image: String!): Service
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
   }
