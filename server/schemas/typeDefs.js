@@ -90,6 +90,20 @@ const typeDefs = gql`
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
   }
+
+  type Mutation {
+  addProduct(
+    name: String!,
+    description: String!,
+    image: String!,
+    price: Float!,
+    quantity: Int!, 
+    category: String!
+    seller: String!
+  ): Product
+  }
+
 `;
+
 
 module.exports = typeDefs;
