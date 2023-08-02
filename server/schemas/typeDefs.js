@@ -6,13 +6,6 @@ const typeDefs = gql`
     name: String
   }
 
-  type Comment {
-    _id: ID
-    commentText: String
-    author: User
-    event: Event
-  }
-
   type Product {
     _id: ID
     name: String
@@ -66,7 +59,6 @@ const typeDefs = gql`
     attendees: [User]
     isPublic: Boolean
     likes: Int
-    comments: [Comment]
   }
 
   type Review {
@@ -102,7 +94,7 @@ const typeDefs = gql`
     user: User
     order(_id: ID!): Order
     checkout(products: [ProductInput]): Checkout
-    events: [Event]
+    events: [Events]
     services: [Service]
   }
 
@@ -130,8 +122,7 @@ const typeDefs = gql`
       emergencyContactPhoneNumber: String
     ): User
     addOrder(products: [ID]!): Order
-    addEvent(name: String!, date: String!, description: String!, attendees: Int!): Event
-    addComment(eventId: ID!, commentText: String!): Event
+    addEvent(name: String!, date: String!, description: String!, attendees: Int!): Events
     addReview(reviewText: String!, rating: Int!, service: ID!): Service
     addService(name: String!, rating: Int!, category: String!, image: String!): Service
     updateProduct(_id: ID!, quantity: Int!): Product

@@ -184,6 +184,8 @@ db.once('open', async () => {
 
   console.log('users seeded');
 
+  await Events.deleteMany();
+
   await Events.insertMany([
     {
       name: 'Community Picnic',
@@ -194,18 +196,18 @@ db.once('open', async () => {
       attendees: [users[0]._id, users[1]._id, users[2]._id],
       isPublic: true,
       likes: 3,
-      comments: [
-        {
-          comment: 'This is a great event!',
-          username: users[0]._id,
-          likes: 2
-        },
-        {
-          comment: 'I am looking forward to it!',
-          username: users[1]._id,
-          likes: 1
-        },
-      ]
+      // comments: [
+      //   {
+      //     comment: 'This is a great event!',
+      //     username: users[0]._id,
+      //     likes: 2
+      //   },
+      //   {
+      //     comment: 'I am looking forward to it!',
+      //     username: users[1]._id,
+      //     likes: 1
+      //   },
+      // ]
     },
     {
       name: 'Neighborhood Cleanup',

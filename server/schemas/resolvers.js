@@ -85,7 +85,7 @@ const resolvers = {
       return { session: session.id };
     },
     events: async () => {
-      return await Events.find().populate('comment');
+      return await Events.find();
     },
     services: async () => {
       return await Service.find().populate('review');
@@ -123,7 +123,7 @@ const resolvers = {
     },
     addEvent: async (parent, args, context) => {
       if (context.user) {
-        const event = await Event.create(args);
+        const event = await Events.create(args);
 
         await User.findByIdAndUpdate(context.user._id, { $push: { events: event._id } });
 
@@ -131,21 +131,6 @@ const resolvers = {
       }
 
       throw new AuthenticationError('Not logged in');
-    },
-    addComment: async (parent, { eventId, commentText }, context) => {
-      if (context.user) {
-        const comment = await Comment.create({ commentText, username: context.user._id, eventId });
-
-        const updatedEvent = await Event.findOneAndUpdate(
-          { _id: eventId },
-          { $push: { comments: comment._id } },
-          { new: true }
-        ).populate('comments');
-
-        return updatedEvent;
-      }
-
-      throw new AuthenticationError('You need to be logged in!');
     },
     addReview: async (parent, { serviceId, reviewText, rating }, context) => {
       if (context.user) {

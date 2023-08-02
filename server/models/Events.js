@@ -45,7 +45,7 @@ const eventSchema = new Schema({
     type: Number, 
     default: 0 
   },
-  comments: [commentSchema],
+  // comments: [commentSchema],
 });
 
 const Event = mongoose.model('Event', eventSchema);
