@@ -19,21 +19,20 @@ function EventItem(item) {
     } = item;
 
     return (
-        <div>it works</div>
-        // <div className="card px-1 py-1">
-        //         <div className="card-header">
-        //             <h3 className="card-title">{name}</h3>
-        //         </div>
-        //         <div className="card-body">
-        //             <p className="card-text">{description}</p>
-        //             <p className="card-text">{date}</p>
-        //             <p className="card-text">{location}</p>
-        //             <p className="card-text">{host}</p>
-        //             <p className="card-text">{attendees}</p>
-        //             <p className="card-text">{isPublic}</p>
-        //             <p className="card-text">{likes}</p>
-        //         </div>
-        // </div>
+        <div className="card px-1 py-1">
+                <div className="card-header">
+                    <h3 className="card-title">{name}</h3>
+                </div>
+                <div className="card-body">
+                    <p className="card-text">{description}</p>
+                    <p className="card-text">{date}</p>
+                    <p className="card-text">{location}</p>
+                    <p className="card-text">{host}</p>
+                    <p className="card-text">{attendees}</p>
+                    <p className="card-text">{isPublic}</p>
+                    <p className="card-text">{likes}</p>
+                </div>
+        </div>
     );
 
 }
