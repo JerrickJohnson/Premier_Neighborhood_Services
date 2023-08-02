@@ -24,12 +24,18 @@ function EventList() {
                 <div className="row mt-4">
                     {events &&
                         events.map((event) => (
-                            <div className="col-md-4">
-                                <h5>{event.name}</h5>
-                                <p>{event.description}</p>
-                                <p>Date: {event.date}</p>
-                                <a href="/events/1" className="btn btn-primary">More Info</a>
-                            </div>
+                            <EventItem
+                                key={event._id}
+                                _id={event._id}
+                                name={event.name}
+                                description={event.description}
+                                date={event.date}
+                                location={event.location}
+                                host={event.host}
+                                attendees={event.attendees}
+                                isPublic={event.isPublic}
+                                likes={event.likes}
+                            />
                     ))}
                 </div>
             )}

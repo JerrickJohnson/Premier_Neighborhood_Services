@@ -19,22 +19,20 @@ function EventItem(item) {
     } = item;
 
     return (
-        <div className="card px-1 py-1">
-                <div className="card-header">
-                    <h3 className="card-title">{name}</h3>
-                </div>
-                <div className="card-body">
-                    <p className="card-text">{description}</p>
-                    <p className="card-text">{date}</p>
-                    <p className="card-text">{location}</p>
-                    <p className="card-text">{host}</p>
-                    <p className="card-text">{attendees}</p>
-                    <p className="card-text">{isPublic}</p>
-                    <p className="card-text">{likes}</p>
-                </div>
+        <div className="col-md-4">
+            <h5>{name}</h5>
+            <p>{description}</p>
+            <p>Date: {date}</p>
+            <p>Location: {location}</p>
+            <p>Likes: {likes}</p>
+            {/* The attendee list will be saved for future development
+                <ul>Attendees: {attendees.map((attendee) => (
+                <li key={attendee._id}>{attendee.username}</li>
+            ))}
+            </ul> */}
+            <a href="/events/1" className="btn btn-primary">More Info</a>
         </div>
     );
-
 }
 
 export default EventItem;
