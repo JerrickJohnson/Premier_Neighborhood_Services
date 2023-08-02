@@ -68,3 +68,28 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+export const QUERY_EVENTS = gql`
+  {
+    events {
+      _id
+      name
+      description
+      date
+      location
+      host
+      attendees {
+        firstName
+        lastName
+      }
+      isPublic
+      likes
+      comments {
+        commentText
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+
