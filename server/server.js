@@ -8,8 +8,12 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+//Model needed for REST API route for multer
+const { Product } = require('./models/')
 
+//MULTER CODE
 const multer = require('multer');
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'images')
@@ -20,7 +24,20 @@ const storage = multer.diskStorage({
   }
 })
 
-const upload = multer({ storage: storage });
+const upload = multer({ 
+  storage: storage,
+limits: {fileSize: '1000000'},
+fileFilter: (req, file, cb) => {
+  const fileTypes = /jpeg|jpg|png|gif/
+  const mimType = fileTypes.test(file.mimetype)
+  const extname = fileTypes.test(path.extname(file.originalname))
+
+  if(mimType && extname) {
+    return cb(null, true)
+  }
+  cb('Give proper files format to upload')
+}
+ }).single('image');
 
 const server = new ApolloServer({
   typeDefs,
@@ -42,6 +59,23 @@ if (process.env.NODE_ENV === 'production') {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+
+//MULTER REST ROUTE - TEST OBJECT DATA STILL
+app.post('/api/add-product', upload, async (req,res) => {
+  const newProductData = {
+    name: 'Test Product 2',
+    price: 10,
+    category: "64c9bcc02ae1fb78462d3067",
+    image: req.file.path
+  }
+
+  try {
+    const newProduct = await Product.create(newProductData);
+    res.status(200).json(newProduct);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+})
 
 
 // Create a new instance of an Apollo server with the GraphQL schema
