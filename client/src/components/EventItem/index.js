@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { pluralize } from "../../utils/helpers";
+import { formatDate } from "../../utils/helpers";
 import { useStoreContext } from "../../utils/GlobalState";
 import { idbPromise } from "../../utils/helpers";
 
@@ -22,7 +22,7 @@ function EventItem(item) {
         <div className="col-md-4">
             <h5>{name}</h5>
             <p>{description}</p>
-            <p>Date: {date}</p>
+            <p>Date: {new Date(parseInt(date)).toLocaleDateString()}</p>
             <p>Location: {location}</p>
             <p>Likes: {likes}</p>
             {/* The attendee list will be saved for future development
