@@ -127,18 +127,16 @@ const typeDefs = gql`
     addService(name: String!, rating: Int!, category: String!, image: String!): Service
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
-  }
-
-  type Mutation {
-  addProduct(
-    name: String!,
-    description: String!,
-    image: String!,
-    price: Float!,
-    quantity: Int!, 
-    category: String!
-    seller: String!
-  ): Product
+    # Add the addProduct mutation
+    addProduct(
+      name: String!,
+      description: String!,
+      image: String!,
+      price: Float!,
+      quantity: Int!, 
+      category: String!
+      seller: String!
+    ): Product
   }
 
 `;

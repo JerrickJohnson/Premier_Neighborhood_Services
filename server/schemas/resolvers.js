@@ -109,12 +109,20 @@ const resolvers = {
     
       return { token, user };
     },
-    addProduct: async (parent, { products }, context) => {
+    addProduct: async (parent, { name, description, image, price, quantity, category }, context) => {
       console.log(context);
+      const loggedInUserId = context.loggedInUserId;
       if (context.user) {
-        const product = new Product({ products });
+        const product = new Product({
+           name,
+           description,
+           image,
+           price,
+           quantity,
+           category,
+           seller: context.user._id});
 
-        await User.findByIdAndUpdate(context.user._id, { $push: { products: product } });
+           await product.save();
 
         return product;
       }
