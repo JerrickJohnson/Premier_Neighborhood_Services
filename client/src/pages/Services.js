@@ -1,6 +1,6 @@
 import React from "react";
 import { RenderImage } from "../components/Services";
-// import { useState } from "react";
+
 
 
 function App() {
@@ -16,15 +16,9 @@ function App() {
       if (window.matchMedia(mediaQuery).matches) {
         style.height = "200px";
       }
-
-
-    
-
       
     return (
-      <div style={{ style }}>
-       
-        
+      <div style={{ style }}>     
         <RenderImage />
       </div>
     );

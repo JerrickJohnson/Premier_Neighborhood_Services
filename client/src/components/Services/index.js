@@ -1,5 +1,3 @@
-// import React, { useState } from "react";
-
 
 function RenderImage() {
   const yourImage =
@@ -21,7 +19,7 @@ function RenderImage() {
               We offer the best services for our neighborhood. For routine serive request, please click the button below.
               
             </p>
-            <a href="/servicerequest" className="btn btn-primary">Service Request</a>
+            <a href="/servicerequests" className="btn btn-primary">Service Request</a>
           </div>
         </div>
         <div className="col-md-6">
@@ -34,7 +32,7 @@ function RenderImage() {
           <div className="card-body">
             <h5 className="card-title">Exterior Area Maintenance</h5>
             <p className="card-text">Exterior repairs, fall tree and other nature effects, routine lawn serice</p>
-            <a href="/servicerequest" className="btn btn-primary">Service Request</a>
+            <a href="/servicerequests" className="btn btn-primary">Service Request</a>
           </div>
         </div>
         <div className="col-md-6 order-md-1">
@@ -47,7 +45,7 @@ function RenderImage() {
           <div className="card-body">
             <h5 className="card-title">Electrical Issues</h5>
             <p className="card-text">Our partnered service provider will respond within 2 hours of any service call. Please contact us if you are having issues</p>
-            <a href="/servicerequest" className="btn btn-primary">Service Request</a>
+            <a href="/servicerequests" className="btn btn-primary">Service Request</a>
           </div>
         </div>
         <div className="col-md-6">
@@ -58,7 +56,7 @@ function RenderImage() {
           {/* Affliated links to service providers */}
           <div className="row mt-4">
         <div className="col mt-2"
-            style={{backgroundColor: "darkgray"}}>
+            style={{backgroundColor: "grey"}}>
           <h3>Service Providers Affliated Links</h3>
         </div>
       </div>
