@@ -7,6 +7,8 @@ import { idbPromise } from "../../utils/helpers";
 function EventItem(item) {
     const [state, dispatch] = useStoreContext();
 
+    const { isLiked } = state;
+
     const {
         name,
         description,
@@ -20,17 +22,12 @@ function EventItem(item) {
 
     return (
         <div className="col-md-4">
-            <h5>{name}</h5>
+            <h5 style={{fontWeight: "bold"}}>{name}</h5>
             <p>{description}</p>
             <p>Date: {new Date(parseInt(date)).toLocaleDateString()}</p>
             <p>Time: {new Date(parseInt(date)).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</p>
             <p>Location: {location}</p>
-            <p>Likes: {likes}</p>
-            {/* The attendee list will be saved for future development
-                <ul>Attendees: {attendees.map((attendee) => (
-                <li key={attendee._id}>{attendee.username}</li>
-            ))}
-            </ul> */}
+            {/* <p>Likes: {likes}</p> */}
             <a href="/events/1" className="btn btn-primary">More Info</a>
         </div>
     );

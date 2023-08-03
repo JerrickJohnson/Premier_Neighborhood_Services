@@ -22,7 +22,6 @@ const StoreProvider = ({ value = [], ...props }) => {
     cartOpen: false,
     categories: [],
     currentCategory: '',
-    events: [],
   });
 
   // TODO: Add a comment explaining why we passed a `value` attribute to the `Provider`
