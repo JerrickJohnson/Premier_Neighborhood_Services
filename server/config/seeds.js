@@ -10,7 +10,7 @@ db.once('open', async () => {
     { name: 'Electronics' },
     { name: 'Books' },
     { name: 'Toys' },
-    { name: 'Services' }
+   
   ]);
 
   console.log('categories seeded');
@@ -125,21 +125,7 @@ db.once('open', async () => {
       price: 9.99,
       quantity: 600
     },
-{
-    name: 'Electric Service',
-      category: categories[5]._id,
-      description:
-        'Our electrician recommended choice',
-      image: 'electric-service.jpg',  
-      price: 1,   
-  },
-{
-    name: 'Plumbing Service',
-      category: categories[5]._id,
-      description: "Our plumber recommeded choice",
-      image: 'plumbing-service.jpg',
-      price : 1,
-}
+
   ]);
 
   console.log('products seeded');

@@ -116,6 +116,12 @@ img {
   max-width: 100%;
 }
 
+.image {
+  position: absolute;
+  right: 0;
+}
+
+
 span[role="img"] {
   cursor: default;
 }
