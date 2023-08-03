@@ -13,7 +13,6 @@ const commentSchema = new Schema({
     type: Number, 
     default: 0 
   },
-  // timestamps: true 
 });
 
 const eventSchema = new Schema({

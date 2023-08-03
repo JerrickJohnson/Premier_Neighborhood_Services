@@ -190,7 +190,7 @@ db.once('open', async () => {
     {
       name: 'Community Picnic',
       description: 'Join us for a fun and relaxing community picnic at the central park',
-      date: '2023-08-15',
+      date: '2023-08-15 12:00:00',
       location: 'Central Park',
       host: users[0]._id,
       attendees: [users[0]._id, users[1]._id, users[2]._id],
@@ -212,7 +212,7 @@ db.once('open', async () => {
     {
       name: 'Neighborhood Cleanup',
       description: 'We are organizing a neighborhood cleanup. Come lend a hand and make our community even more beautiful!',
-      date: '2023-08-22',
+      date: '2023-08-22 09:00:00',
       location: 'Front Gate',
       host: users[1]._id,
       isPublic: false,
@@ -220,7 +220,7 @@ db.once('open', async () => {
     {
       name: 'Local Concert',
       description: 'A local band will be performing live at the community center',
-      date: '2023-09-01',
+      date: '2023-09-01 19:00:00',
       location: 'Community Center',
       host: users[2]._id,
       isPublic: true,

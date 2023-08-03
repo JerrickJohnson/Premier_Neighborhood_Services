@@ -23,6 +23,7 @@ function EventItem(item) {
             <h5>{name}</h5>
             <p>{description}</p>
             <p>Date: {new Date(parseInt(date)).toLocaleDateString()}</p>
+            <p>Time: {new Date(parseInt(date)).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</p>
             <p>Location: {location}</p>
             <p>Likes: {likes}</p>
             {/* The attendee list will be saved for future development
