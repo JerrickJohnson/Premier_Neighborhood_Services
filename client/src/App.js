@@ -20,6 +20,7 @@ import OrderHistory from './pages/OrderHistory';
 import Services from './pages/Services';
 
 import Marketplace from './pages/Marketplace';
+import AddItem from './pages/AddItem';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -71,6 +72,10 @@ function App() {
               <Route 
                 path="/marketplace"
                 element={<Marketplace />} 
+              />
+              <Route 
+                path="/addItem"
+                element={<AddItem />} 
               />
               <Route 
                 path="/products/:id" 

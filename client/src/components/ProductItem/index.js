@@ -16,7 +16,8 @@ function ProductItem(item) {
     description,
     _id,
     price,
-    quantity
+    quantity,
+    seller
   } = item;
 
   const { cart } = state
@@ -63,13 +64,16 @@ function ProductItem(item) {
     <div className="card mb-3" style={{width: '80%', marginBottom: '20px', border: '1px solid #ccc', padding: '10px'}}>
   <div className="row g-0">
     <div className="col-md-4">
+    <Link to={`/products/${_id}`}>
       <img src={`/images/${image}`} className="img-fluid rounded-start" alt={name}></img>
+      </Link>
     </div>
     <div className="col-md-8">
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
         <p className="card-text">{description}</p>
-        <p className="card-text">{quantity} {pluralize("item", quantity)} available</p>
+        <p className="card-text">{seller}</p>
+        {/* <p className="card-text">{quantity} {pluralize("item", quantity)} available</p> */}
         <p className="card-text"><small className="text-body-secondary">${price}</small></p>
         <button onClick={addToCart}>Buy Item</button>
       </div>
@@ -78,29 +82,6 @@ function ProductItem(item) {
 </div>
   );
     
-// return (
-//   <div className="card mb-3">
-//       <div className="row g-0">
-//         <div className="col-md-3">
-//           <img
-//             src={`/images/${image}`}
-//             className="img-fluid rounded-start product-image"
-//             alt={name}
-//           />
-//         </div>
-//         <div className="col-md-9">
-//           <div className="card-body">
-//             <h5 className="card-title">{name}</h5>
-//             <p className="card-text">{description}</p>
-//             <p className="card-text">{quantity} {pluralize("item", quantity)} available</p>
-//             <p className="card-text"><small className="text-body-secondary">${price}</small></p>
-//             <button onClick={addToCart}>Buy Item</button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-
-// );
 
 }
 
