@@ -29,6 +29,62 @@ export const ADD_ORDER = gql`
   }
 `;
 
+// export const ADD_PRODUCT = gql`
+//   mutation addProduct($products: [ID]!) {
+//     addProduct(products: $products) {
+//       products {
+//         _id
+//         name
+//         description
+//         images
+//         price
+//         quantity
+//         category {
+//           name
+//         }
+//         seller {
+//           _id
+//       }
+//      }
+//    }
+//   }
+// `;
+
+export const ADD_PRODUCT = gql`
+mutation Mutation(
+    $name: String!, 
+    $description: String!, 
+    $image: String!, 
+    $price: Float!, 
+    $quantity: Int!, 
+    $category: String!, 
+    $seller: String!
+  ) {
+  addProduct(
+    name: $name, 
+    description: $description, 
+    image: $image, 
+    price: $price, 
+    quantity: $quantity, 
+    category: $category, 
+    seller: $seller
+  ) {
+    _id
+    name
+    description
+    image
+    quantity
+    price
+    category {
+      _id
+      name
+    }
+  }
+}
+`;
+
+
+
 export const ADD_USER = gql`
   mutation addUser(
     $firstName: String!
