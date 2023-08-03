@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Product, Category, Order } = require('../models');
+const { User, Product, Category, Order, Service, Comment, Event, Review } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -84,6 +84,12 @@ const resolvers = {
 
       return { session: session.id };
     },
+    events: async () => {
+      return await Event.find().populate('comment');
+    },
+    services: async () => {
+      return await Service.find().populate('review');
+    },
   },
   Mutation: {
     addUser: async (parent, { firstName, lastName, email, password, address, dob, phoneNumber, emergencyContact, emergencyContactPhoneNumber }) => {
@@ -114,6 +120,47 @@ const resolvers = {
       }
 
       throw new AuthenticationError('Not logged in');
+    },
+    addEvent: async (parent, args, context) => {
+      if (context.user) {
+        const event = await Event.create(args);
+
+        await User.findByIdAndUpdate(context.user._id, { $push: { events: event._id } });
+
+        return event;
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
+    addComment: async (parent, { eventId, commentText }, context) => {
+      if (context.user) {
+        const comment = await Comment.create({ commentText, username: context.user._id, eventId });
+
+        const updatedEvent = await Event.findOneAndUpdate(
+          { _id: eventId },
+          { $push: { comments: comment._id } },
+          { new: true }
+        ).populate('comments');
+
+        return updatedEvent;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    addReview: async (parent, { serviceId, reviewText, rating }, context) => {
+      if (context.user) {
+        const review = await Review.create({ reviewText, rating, username: context.user._id, serviceId });
+
+        const updatedService = await Service.findOneAndUpdate(
+          { _id: serviceId },
+          { $push: { reviews: review._id } },
+          { new: true, runValidators: true }
+        );
+
+        return updatedService;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
     },
     updateUser: async (parent, args, context) => {
       if (context.user) {
