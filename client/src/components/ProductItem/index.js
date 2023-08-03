@@ -43,44 +43,44 @@ function ProductItem(item) {
     }
   }
 
-  // return (
-  //   <div className="card px-1 py-1">
-  //     <Link to={`/products/${_id}`}>
-  //       <img
-  //         alt={name}
-  //         src={`/images/${image}`}
-  //       />
-  //       <p>{name}</p>
-  //     </Link>
-  //     <div>
-  //       <div>{quantity} {pluralize("item", quantity)} in stock</div>
-  //       <span>${price}</span>
-  //     </div>
-  //     <button onClick={addToCart}>Add to cart</button>
-  //   </div>
-  // );
-
   return (
-    <div className="card mb-3" style={{width: '80%', marginBottom: '20px', border: '1px solid #ccc', padding: '10px'}}>
-  <div className="row g-0">
-    <div className="col-md-4">
-    <Link to={`/products/${_id}`}>
-      <img src={`/images/${image}`} className="img-fluid rounded-start" alt={name}></img>
+    <div className="card px-1 py-1">
+      <Link to={`/products/${_id}`}>
+        <img
+          alt={name}
+          src={`/images/${image}`}
+        />
+        <p>{name}</p>
       </Link>
-    </div>
-    <div className="col-md-8">
-      <div className="card-body">
-        <h5 className="card-title">{name}</h5>
-        <p className="card-text">{description}</p>
-        <p className="card-text">{seller}</p>
-        {/* <p className="card-text">{quantity} {pluralize("item", quantity)} available</p> */}
-        <p className="card-text"><small className="text-body-secondary">${price}</small></p>
-        <button onClick={addToCart}>Buy Item</button>
+      <div>
+        <div>{quantity} {pluralize("item", quantity)} in stock</div>
+        <span>${price}</span>
       </div>
+      <button onClick={addToCart}>Make Offer</button>
     </div>
-  </div>
-</div>
   );
+
+//   return (
+//     <div className="card mb-3" style={{width: '80%', marginBottom: '20px', border: '1px solid #ccc', padding: '10px'}}>
+//   <div className="row g-0">
+//     <div className="col-md-4">
+//     <Link to={`/products/${_id}`}>
+//       <img src={`/images/${image}`} className="img-fluid rounded-start" alt={name}></img>
+//       </Link>
+//     </div>
+//     <div className="col-md-8">
+//       <div className="card-body">
+//         <h5 className="card-title">{name}</h5>
+//         <p className="card-text">{description}</p>
+//         <p className="card-text">{seller}</p>
+//         {/* <p className="card-text">{quantity} {pluralize("item", quantity)} available</p> */}
+//         <p className="card-text"><small className="text-body-secondary">${price}</small></p>
+//         <button onClick={addToCart}>Buy Item</button>
+//       </div>
+//     </div>
+//   </div>
+// </div>
+//   );
     
 
 }
