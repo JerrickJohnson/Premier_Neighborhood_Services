@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Product, Category, Order, Service, Comment, Event, Review } = require('../models');
+const { User, Product, Category, Order, Service, Events, Review } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -85,7 +85,7 @@ const resolvers = {
       return { session: session.id };
     },
     events: async () => {
-      return await Event.find().populate('comment');
+      return await Events.find();
     },
     services: async () => {
       return await Service.find().populate('review');
@@ -136,7 +136,7 @@ const resolvers = {
     },
     addEvent: async (parent, args, context) => {
       if (context.user) {
-        const event = await Event.create(args);
+        const event = await Events.create(args);
 
         await User.findByIdAndUpdate(context.user._id, { $push: { events: event._id } });
 
@@ -144,21 +144,6 @@ const resolvers = {
       }
 
       throw new AuthenticationError('Not logged in');
-    },
-    addComment: async (parent, { eventId, commentText }, context) => {
-      if (context.user) {
-        const comment = await Comment.create({ commentText, username: context.user._id, eventId });
-
-        const updatedEvent = await Event.findOneAndUpdate(
-          { _id: eventId },
-          { $push: { comments: comment._id } },
-          { new: true }
-        ).populate('comments');
-
-        return updatedEvent;
-      }
-
-      throw new AuthenticationError('You need to be logged in!');
     },
     addReview: async (parent, { serviceId, reviewText, rating }, context) => {
       if (context.user) {
@@ -186,7 +171,7 @@ const resolvers = {
       const decrement = Math.abs(quantity) * -1;
 
       return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
-    },
+    },  
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 

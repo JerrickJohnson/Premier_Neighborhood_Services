@@ -18,7 +18,7 @@ import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 import Services from './pages/Services';
-
+import Events from './pages/Events';
 import Marketplace from './pages/Marketplace';
 import AddItem from './pages/AddItem';
 
@@ -88,6 +88,10 @@ function App() {
               <Route
                 path="/services"
                 element={<Services />}
+              />
+              <Route
+                path="/events"
+                element={<Events />}
               />
             </Routes>
           </StoreProvider>

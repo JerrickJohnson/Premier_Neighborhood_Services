@@ -19,6 +19,12 @@ function Nav() {
               Marketplace
             </Link>
           </li>
+
+          <li className="mx-1">
+            <Link to="/events">
+              Events
+            </Link>
+          </li>
           
         {/* added services button link */}
           <li className="mx-1">
