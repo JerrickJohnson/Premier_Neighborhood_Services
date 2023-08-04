@@ -157,9 +157,10 @@ const resolvers = {
     },
     addEvent: async (parent, args, context) => {
       if (context.user) {
+   
         const event = await Events.create(args);
 
-        await User.findByIdAndUpdate(context.user._id, { $push: { events: event._id } });
+        // await User.findByIdAndUpdate(context.user._id, { $push: { events: event._id } });
 
         return event;
       }

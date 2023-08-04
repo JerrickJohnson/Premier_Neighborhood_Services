@@ -1,13 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { formatDate } from "../../utils/helpers";
 import { useStoreContext } from "../../utils/GlobalState";
-import { idbPromise } from "../../utils/helpers";
 
 function EventItem(item) {
-    const [state, dispatch] = useStoreContext();
-
-    const { isLiked } = state;
 
     const {
         name,
