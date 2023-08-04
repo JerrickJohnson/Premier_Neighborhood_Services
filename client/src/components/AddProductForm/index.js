@@ -13,7 +13,7 @@ function AddProductForm({ loggedInUserId }) {
     price: 0,
     quantity: 0,
     category: '',
-    seller: loggedInUserId // Set the seller using the prop
+    // seller: loggedInUserId // Set the seller using the prop
   });
 
   const [addProductMutation] = useMutation(ADD_PRODUCT);// Add the mutation to the component
@@ -22,34 +22,19 @@ function AddProductForm({ loggedInUserId }) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    try {
-      // Call the mutation action with the form data
-      const { data } = await addProductMutation({
-        variables: {
-          name: formState.name,
-          description: formState.description,
-          image: formState.image,
-          price: parseFloat(formState.price),
-          quantity: parseInt(formState.quantity),
-          category: formState.category,
-          seller: formState.seller, // Use the seller from formState
-          // Add other fields as needed based on your mutation query
-        },
-      });
-      console.log(data);
-      // Reset form data after successful submission
-      setFormState({
-        name: '',
-        description: '',
-        image: '',
-        price: 0,
-        quantity: 0,
-        category: '',
-        seller: loggedInUserId // Reset seller to the logged-in user
-      });
-    } catch (error) {
-      console.error('Error adding product:', error);
-    }
+    //submit form values in HTML using the name attribute
+    document.theForm.submit();
+
+    //reset the form values
+    setFormState({
+      name: '',
+      description: '',
+      image: '',
+      price: 0,
+      quantity: 0,
+      category: '',
+      // seller: loggedInUserId // Reset seller to the logged-in user
+    })
   };
 
 
@@ -61,14 +46,18 @@ function AddProductForm({ loggedInUserId }) {
       [name]: value,
     });
   };
-
+  
   if (loading || !categoryData) {
     return <p>Loading categories...</p>;
-  } 
-      
+  }
+
+
   return (
     <div>
-      <form onSubmit={handleFormSubmit}>
+      {/* prevent redirecting to a new page on submit */}
+      <iframe name="dummyframe" id="dummyframe" style={{display: 'none'}}></iframe>
+      <form action="/api/add-product" name="theForm" method="post" encType='multipart/form-data' target="dummyframe">
+      {/* <form onSubmit={handleFormSubmit} encType='multipart/form-data'> */}
         <div className="flex-row space-between my-2">
           <label htmlFor="name">Product Name:</label>
           <input
@@ -128,7 +117,7 @@ function AddProductForm({ loggedInUserId }) {
          ))}
           </select>
         </div>
-        <div className="flex-row space-between my-2">
+        {/* <div className="flex-row space-between my-2">
           <label htmlFor="seller">Seller:</label>
           <input
             type="text"
@@ -137,11 +126,11 @@ function AddProductForm({ loggedInUserId }) {
             value={formState.seller}
             readOnly // This will make the input field read-only
           />
-        </div>
+        </div> */}
         <div className="flex-row space-between my-2">
           <label htmlFor="image">Image:</label>
           <input
-            type="text"
+            type="file"
             id="image"
             name="image"
             value={formState.image}
@@ -149,7 +138,7 @@ function AddProductForm({ loggedInUserId }) {
           />
         </div>
 
-        <button type="submit">Add Product</button>
+        <button type="submit" onClick={handleFormSubmit}>Add Product</button>
       </form>
     </div>
   );
