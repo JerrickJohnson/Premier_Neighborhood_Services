@@ -63,9 +63,12 @@ app.get('/', (req, res) => {
 //MULTER REST ROUTE - TEST OBJECT DATA STILL
 app.post('/api/add-product', upload, async (req,res) => {
   const newProductData = {
-    name: 'Test Product 2',
-    price: 10,
-    category: "64c9bcc02ae1fb78462d3067",
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
+    quantity: req.body.quantity,
+    category: req.body.category,
+    // seller: "Timmy",
     image: req.file.path
   }
 
