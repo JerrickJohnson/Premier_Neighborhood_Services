@@ -7,5 +7,6 @@ const Payment = require('./Payment');
 const Service = require('./Service');
 const ServiceCategory = require('./ServiceCategory');
 const Events = require('./Events');
+const Review = require('./Review');
 
-module.exports = { User, Product, Category, Order, Message, Payment, Service, ServiceCategory, Events };
+module.exports = { User, Product, Category, Order, Message, Payment, Service, ServiceCategory, Events, Review };

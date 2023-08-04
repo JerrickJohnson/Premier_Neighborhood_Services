@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { ADD_PRODUCT } from '../../utils/mutations'; // Your mutation query
+import { QUERY_CATEGORIES } from '../../utils/queries';
 
 
-function AddProductForm(props) {
+function AddProductForm({ loggedInUserId }) {
   const [formState, setFormState] = useState({
     name: '',
     description: '',
@@ -11,9 +13,12 @@ function AddProductForm(props) {
     price: 0,
     quantity: 0,
     category: '',
-    seller: ''
+    seller: loggedInUserId // Set the seller using the prop
   });
+
   const [addProductMutation] = useMutation(ADD_PRODUCT);// Add the mutation to the component
+
+  const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -27,11 +32,21 @@ function AddProductForm(props) {
           price: parseFloat(formState.price),
           quantity: parseInt(formState.quantity),
           category: formState.category,
-          seller: formState.seller,
+          seller: formState.seller, // Use the seller from formState
           // Add other fields as needed based on your mutation query
         },
       });
       console.log(data);
+      // Reset form data after successful submission
+      setFormState({
+        name: '',
+        description: '',
+        image: '',
+        price: 0,
+        quantity: 0,
+        category: '',
+        seller: loggedInUserId // Reset seller to the logged-in user
+      });
     } catch (error) {
       console.error('Error adding product:', error);
     }
@@ -46,38 +61,6 @@ function AddProductForm(props) {
       [name]: value,
     });
   };
-
-
-
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData({ ...formData, [name]: value });
-  //   console.log(formData);
-  // };
-
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     // Call the mutation action with the form data
-  //     const { data } = await addProductMutation({
-  //       variables: {
-  //         name: formData.name,
-  //         description: formData.description,
-  //         image: formData.image,
-  //         price: parseFloat(formData.price),
-  //         quantity: parseInt(formData.quantity),
-  //         category: formData.category,
-  //         seller: formData.seller,
-  //         // Add other fields as needed based on your mutation query
-  //       },
-  //     });
-
-
-  //   } catch (error) {
-  //     console.error('Error adding product:', error);
-  //   }
-  // };
-
 
 
   return (
@@ -128,21 +111,18 @@ function AddProductForm(props) {
         <div className="flex-row space-between my-2">
           <label htmlFor="category">Category:</label>
           <select
-            id="category"
+             id="category"
             name="category"
             value={formState.category}
             onChange={handleChange}
             required
-          >
-            <option value="">Select a category</option>
-            {/* Render options based on your category data */}
-            <option value="Household Supplies">Household Supplies</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Books">Books</option>
-            <option value="Toys">Toys</option>
-            <option value="Services">Services</option>
-            
-            {/* Add other category options */}
+        >
+          <option value="">Select a category</option>
+          {categoryData.categories.map(category => (
+          <option key={category._id} value={category._id}>
+          {category.name}
+          </option>
+         ))}
           </select>
         </div>
         <div className="flex-row space-between my-2">
@@ -152,7 +132,7 @@ function AddProductForm(props) {
             id="seller"
             name="seller"
             value={formState.seller}
-            onChange={handleChange}
+            readOnly // This will make the input field read-only
           />
         </div>
         <div className="flex-row space-between my-2">

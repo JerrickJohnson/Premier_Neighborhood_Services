@@ -1,5 +1,5 @@
 const db = require('./connection');
-const { User, Product, Category, Service } = require('../models');
+const { User, Product, Category, Service, Events } = require('../models');
 
 db.once('open', async () => {
   await Category.deleteMany();
@@ -14,16 +14,6 @@ db.once('open', async () => {
   ]);
 
   console.log('categories seeded');
-
-  // const users = await User.create({
-  //   firstName: 'Admin',
-  //   lastName: 'Admin',
-  //   email: 'admin@premierns.com',
-  //   password: 'admin1234',
-  //   address: '100 Main Street',
-  // });
-
-  // console.log(users);
 
   await Product.deleteMany();
 
@@ -159,11 +149,12 @@ db.once('open', async () => {
   // }
   // ]);
 
-  console.log('services seeded');
+  // console.log('services seeded');
 
   await User.deleteMany();
 
-  await User.create({
+  const users = await User.insertMany([
+    {
     firstName: 'Pamela',
     lastName: 'Washington',
     email: 'pamela@testmail.com',
@@ -174,17 +165,70 @@ db.once('open', async () => {
         products: [products[0]._id, products[0]._id, products[1]._id]
       }
     ]
-  });
-
-  await User.create({
+  },
+  {
     firstName: 'Elijah',
     lastName: 'Holt',
     email: 'eholt@testmail.com',
     password: 'password12345',
     address: '2 Main St',
-  });
+  },
+  {
+    firstName: 'Cesar',
+    lastName: 'Garcia',
+    email: 'cesar@mail.com',
+    password: 'password12345',
+    address: '3 Main St',
+    },
+  ]);
 
   console.log('users seeded');
+
+  await Events.deleteMany();
+
+  await Events.insertMany([
+    {
+      name: 'Community Picnic',
+      description: 'Join us for a fun and relaxing community picnic at the central park',
+      date: '2023-08-15 12:00:00',
+      location: 'Central Park',
+      host: users[0]._id,
+      attendees: [users[0]._id, users[1]._id, users[2]._id],
+      isPublic: true,
+      likes: 3,
+      // comments: [
+      //   {
+      //     comment: 'This is a great event!',
+      //     username: users[0]._id,
+      //     likes: 2
+      //   },
+      //   {
+      //     comment: 'I am looking forward to it!',
+      //     username: users[1]._id,
+      //     likes: 1
+      //   },
+      // ]
+    },
+    {
+      name: 'Neighborhood Cleanup',
+      description: 'We are organizing a neighborhood cleanup. Come lend a hand and make our community even more beautiful!',
+      date: '2023-08-22 09:00:00',
+      location: 'Front Gate',
+      host: users[1]._id,
+      isPublic: false,
+    },
+    {
+      name: 'Local Concert',
+      description: 'A local band will be performing live at the community center',
+      date: '2023-09-01 19:00:00',
+      location: 'Community Center',
+      host: users[2]._id,
+      isPublic: true,
+    }
+  ]);
+
+  console.log('events seeded');
+
 
   process.exit();
 });

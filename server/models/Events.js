@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
   username: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   },
   comment: {
     type: String,
@@ -12,7 +13,6 @@ const commentSchema = new Schema({
     type: Number, 
     default: 0 
   },
-  // timestamps: true 
 });
 
 const eventSchema = new Schema({
@@ -44,7 +44,7 @@ const eventSchema = new Schema({
     type: Number, 
     default: 0 
   },
-  comments: [commentSchema],
+  // comments: [commentSchema],
 });
 
 const Event = mongoose.model('Event', eventSchema);
