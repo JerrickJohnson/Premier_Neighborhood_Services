@@ -13,7 +13,7 @@ function AddProductForm({ loggedInUserId }) {
     price: 0,
     quantity: 0,
     category: '',
-    seller: loggedInUserId // Set the seller using the prop
+    // seller: loggedInUserId // Set the seller using the prop
   });
 
   const [addProductMutation] = useMutation(ADD_PRODUCT);// Add the mutation to the component
@@ -32,7 +32,7 @@ function AddProductForm({ loggedInUserId }) {
           price: parseFloat(formState.price),
           quantity: parseInt(formState.quantity),
           category: formState.category,
-          seller: formState.seller, // Use the seller from formState
+          // seller: formState.seller, // Use the seller from formState
           // Add other fields as needed based on your mutation query
         },
       });
@@ -45,7 +45,7 @@ function AddProductForm({ loggedInUserId }) {
         price: 0,
         quantity: 0,
         category: '',
-        seller: loggedInUserId // Reset seller to the logged-in user
+        // seller: loggedInUserId // Reset seller to the logged-in user
       });
     } catch (error) {
       console.error('Error adding product:', error);
@@ -65,7 +65,8 @@ function AddProductForm({ loggedInUserId }) {
 
   return (
     <div>
-      <form onSubmit={handleFormSubmit}>
+      <form action="/api/add-product" method="post" encType='multipart/form-data'>
+      {/* <form onSubmit={handleFormSubmit}> */}
         <div className="flex-row space-between my-2">
           <label htmlFor="name">Product Name:</label>
           <input
@@ -125,7 +126,7 @@ function AddProductForm({ loggedInUserId }) {
          ))}
           </select>
         </div>
-        <div className="flex-row space-between my-2">
+        {/* <div className="flex-row space-between my-2">
           <label htmlFor="seller">Seller:</label>
           <input
             type="text"
@@ -134,11 +135,11 @@ function AddProductForm({ loggedInUserId }) {
             value={formState.seller}
             readOnly // This will make the input field read-only
           />
-        </div>
+        </div> */}
         <div className="flex-row space-between my-2">
           <label htmlFor="image">Image:</label>
           <input
-            type="text"
+            type="file"
             id="image"
             name="image"
             value={formState.image}
