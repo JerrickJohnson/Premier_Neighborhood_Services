@@ -13,6 +13,7 @@
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^7.45.2",
     "react-image": "^4.1.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.1"

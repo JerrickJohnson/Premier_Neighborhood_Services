@@ -22,31 +22,58 @@ function AddProductForm({ loggedInUserId }) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    //MULTER SET UP
+    console.log(formState.name);
+    const newProductData = new FormData();
+    console.log("new product data" + newProductData);
+
+    newProductData.append('name', formState.name);
+    newProductData.append('description', formState.description);
+    newProductData.append('image', formState.image );
+    newProductData.append('price', formState.price);
+    newProductData.append('quantity', formState.quantity);
+    newProductData.append('category', formState.category);
+    //need to add seller as user id
+    console.log("after append" + newProductData.name);
     try {
+      console.log(newProductData.name);
+      //Multer fetch method
+      const response = await fetch('/api/add-product', {
+        method: 'POST',
+        body: newProductData
+      });
+
+      if (response.ok){
+        console.log('success!');
+      } else {
+        alert('Failed to create new product');
+        console.log(response);
+      }
+
       // Call the mutation action with the form data
-      const { data } = await addProductMutation({
-        variables: {
-          name: formState.name,
-          description: formState.description,
-          image: formState.image,
-          price: parseFloat(formState.price),
-          quantity: parseInt(formState.quantity),
-          category: formState.category,
+      // const { data } = await addProductMutation({
+      //   variables: {
+      //     name: formState.name,
+      //     description: formState.description,
+      //     image: formState.image,
+      //     price: parseFloat(formState.price),
+      //     quantity: parseInt(formState.quantity),
+      //     category: formState.category,
           // seller: formState.seller, // Use the seller from formState
           // Add other fields as needed based on your mutation query
-        },
-      });
-      console.log(data);
+        // },
+      // });
+      // console.log(data);
       // Reset form data after successful submission
-      setFormState({
-        name: '',
-        description: '',
-        image: '',
-        price: 0,
-        quantity: 0,
-        category: '',
-        // seller: loggedInUserId // Reset seller to the logged-in user
-      });
+      // setFormState({
+      //   name: '',
+      //   description: '',
+      //   image: '',
+      //   price: 0,
+      //   quantity: 0,
+      //   category: '',
+      //   // seller: loggedInUserId // Reset seller to the logged-in user
+      // });
     } catch (error) {
       console.error('Error adding product:', error);
     }
@@ -65,8 +92,8 @@ function AddProductForm({ loggedInUserId }) {
 
   return (
     <div>
-      <form action="/api/add-product" method="post" encType='multipart/form-data'>
-      {/* <form onSubmit={handleFormSubmit}> */}
+      {/* <form action="/api/add-product" method="post" encType='multipart/form-data'> */}
+      <form onSubmit={handleFormSubmit} encType='multipart/form-data'>
         <div className="flex-row space-between my-2">
           <label htmlFor="name">Product Name:</label>
           <input
