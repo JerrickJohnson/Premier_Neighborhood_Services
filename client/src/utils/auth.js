@@ -40,6 +40,10 @@ class AuthService {
     // this will reload the page and reset the state of the application
     window.location.assign('/');
   }
+  getUserId() {
+    const profile = this.getProfile();
+    return profile?._id;
+  }
 }
 
 export default new AuthService();
