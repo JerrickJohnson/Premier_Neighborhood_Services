@@ -62,7 +62,10 @@ function AddProductForm({ loggedInUserId }) {
     });
   };
 
-
+  if (loading || !categoryData) {
+    return <p>Loading categories...</p>;
+  } 
+      
   return (
     <div>
       <form onSubmit={handleFormSubmit}>
@@ -151,5 +154,7 @@ function AddProductForm({ loggedInUserId }) {
     </div>
   );
 };
+
+
 
 export default AddProductForm;

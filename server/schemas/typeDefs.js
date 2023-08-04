@@ -14,7 +14,7 @@ const typeDefs = gql`
     quantity: Int
     price: Float
     category: Category
-    createdBy: User
+    seller: User
     PurchasedBy: User
   }
 
