@@ -17,9 +17,10 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^2.1.1",
+    "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.8.0",
-    "react-dom": "^18.2.0"
+    "env": "^0.0.2",
+    "react-bootstrap": "^2.8.0"
   }
 }

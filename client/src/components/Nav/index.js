@@ -32,6 +32,12 @@ function Nav() {
               Services
             </Link>
           </li>
+          {/* added payments button link */}
+          <li className="mx-1">
+            <Link to="/payments">
+              Payments
+            </Link>
+          </li>
 
           <li className="mx-1">
             {/* this is not using the Link component to logout or user and then refresh the application to the start */}
