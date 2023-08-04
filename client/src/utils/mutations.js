@@ -83,8 +83,6 @@ mutation Mutation(
 }
 `;
 
-
-
 export const ADD_USER = gql`
   mutation addUser(
     $firstName: String!
@@ -211,3 +209,39 @@ export const REMOVE_ATTENDEE = gql`
   }
 `;
 
+export const CREATE_PAYMENT = gql`
+  mutation CreatePayment($user: ID!, $amount: Float!, $paymentMethod: String!, $paymentPurpose: String!) {
+    createPayment(user: $user, amount: $amount, paymentMethod: $paymentMethod, paymentPurpose: $paymentPurpose) {
+      _id
+      user {
+        _id
+      }
+      amount
+      paymentMethod
+      paymentDate
+      paymentPurpose
+      status
+    }
+  }
+`;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser($id: ID!, $dues: Float!) {
+    updateUser(id: $id, dues: $dues) {
+      _id
+      dues
+    }
+  }
+`;
+
+export const GET_USER = gql`
+  query GetUser($id: ID!) {
+    user(id: $id) {
+      _id
+      firstName
+      lastName
+      address
+      dues
+    }
+  }
+`;
