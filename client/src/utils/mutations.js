@@ -115,29 +115,13 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_EVENT = gql`
-  mutation addEvent(
-    $name: String!
-    $description: String!
-    $date: String!
-    $location: String!
-    $host: String!
-    $isPublic: Boolean
-  ) {
-    addEvent(
-      name: $name
-      description: $description
-      date: $date
-      location: $location
-      host: $host
-      isPublic: $isPublic
-    ) {
-      _id
+  mutation addEvent($name: String!, $date: String!, $description: String!, $location: String) {
+    addEvent(name: $name, date: $date, description: $description, location: $location) {
       name
-      description
       date
       location
-      host
-      isPublic
+      description
+      _id
     }
   }
 `;
