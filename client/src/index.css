@@ -116,6 +116,20 @@ img {
   max-width: 100%;
 }
 
+.image {
+  position: absolute;
+  right: 0;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+
 span[role="img"] {
   cursor: default;
 }

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 
+
 function Login(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
@@ -29,8 +30,19 @@ function Login(props) {
     });
   };
 
+const yourImage = ('images/Corktown_101.jpg')
+
+const style = {
+  backgroundImage: `url(${yourImage})`,
+  backgroundSize: "cover",
+  height: "1000px",
+  width: "2000px"
+};
+
+
   return (
-    <div className="container my-1">
+    <div className="container my-1"
+       style={style}>
       <Link to="/signup">← Go to Signup</Link>
 
       <h2>Login</h2>
@@ -65,6 +77,7 @@ function Login(props) {
         </div>
       </form>
     </div>
+    
   );
 }
 

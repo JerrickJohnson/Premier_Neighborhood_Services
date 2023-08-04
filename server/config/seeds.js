@@ -10,7 +10,7 @@ db.once('open', async () => {
     { name: 'Electronics' },
     { name: 'Books' },
     { name: 'Toys' },
-    { name: 'Services' }
+   
   ]);
 
   console.log('categories seeded');
@@ -125,7 +125,7 @@ db.once('open', async () => {
       price: 9.99,
       quantity: 600,
     },
-  ]);
+    ]);
 
   console.log('products seeded');
 

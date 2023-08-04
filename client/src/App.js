@@ -18,9 +18,16 @@ import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 import Services from './pages/Services';
+
 import Events from './pages/Events';
 import Marketplace from './pages/Marketplace';
 import AddItem from './pages/AddItem';
+
+
+
+import ServiceRequests from './pages/ServiceRequests';
+
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -88,6 +95,10 @@ function App() {
               <Route
                 path="/services"
                 element={<Services />}
+              />
+              <Route
+                path="/servicerequests"
+                element={<ServiceRequests />}
               />
               <Route
                 path="/events"
