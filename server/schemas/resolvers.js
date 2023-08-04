@@ -126,7 +126,7 @@ const resolvers = {
     
       return { token, user };
     },
-    addProduct: async (parent, { name, description, image, price, quantity, category }, context) => {
+    addProduct: async (parent, { name, description, image, price, quantity, category, seller }, context) => {
       if (context.user) {
         const product = new Product({
           name,
@@ -135,14 +135,14 @@ const resolvers = {
           price,
           quantity,
           category,
-          seller: context.user._id
+          createdBy: seller || context.user._id
         });
-
+    
         await product.save();
-
+    
         return product;
       }
-
+    
       throw new AuthenticationError('Not logged in');
     },
     
