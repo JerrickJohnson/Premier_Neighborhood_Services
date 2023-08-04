@@ -22,6 +22,7 @@ import Services from './pages/Services';
 import Events from './pages/Events';
 import Marketplace from './pages/Marketplace';
 import AddItem from './pages/AddItem';
+import NewEvent from './pages/NewEvent';
 
 
 
@@ -103,6 +104,10 @@ function App() {
               <Route
                 path="/events"
                 element={<Events />}
+              />
+              <Route
+                path="/newevent"
+                element={<NewEvent />}
               />
             </Routes>
           </StoreProvider>

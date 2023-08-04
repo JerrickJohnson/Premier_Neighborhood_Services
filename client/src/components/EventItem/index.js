@@ -21,9 +21,9 @@ function EventItem(item) {
     } = item;
 
     return (
-        <div className="col-md-4">
+        <div className="col-md-5 m-2 border border-primary rounded">
             <h5 style={{fontWeight: "bold"}}>{name}</h5>
-            <p>{description}</p>
+            <p className="border-bottom ">{description}</p>
             <p>Date: {new Date(parseInt(date)).toLocaleDateString()}</p>
             <p>Time: {new Date(parseInt(date)).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</p>
             <p>Location: {location}</p>
