@@ -209,9 +209,31 @@ export const REMOVE_ATTENDEE = gql`
   }
 `;
 
-export const CREATE_PAYMENT = gql`
-  mutation CreatePayment($user: ID!, $amount: Float!, $paymentMethod: String!, $paymentPurpose: String!) {
-    createPayment(user: $user, amount: $amount, paymentMethod: $paymentMethod, paymentPurpose: $paymentPurpose) {
+export const CREATE_CHECKOUT_SESSION = gql`
+  mutation checkout($id: ID!) {
+    checkout(id: $id) {
+      session
+    }
+  }
+`;
+
+export const ADD_PAYMENT = gql`
+  mutation addPayment(
+    $userId: ID!,
+    $amount: Float!,
+    $paymentMethod: String!,
+    $paymentDate: String!,
+    $paymentPurpose: String!,
+    $status: String!
+  ) {
+    addPayment(
+      userId: $userId,
+      amount: $amount,
+      paymentMethod: $paymentMethod,
+      paymentDate: $paymentDate,
+      paymentPurpose: $paymentPurpose,
+      status: $status
+    ) {
       _id
       user {
         _id
@@ -226,7 +248,7 @@ export const CREATE_PAYMENT = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $dues: Float!) {
+  mutation updateUser($id: ID!, $dues: Int!) {
     updateUser(id: $id, dues: $dues) {
       _id
       dues

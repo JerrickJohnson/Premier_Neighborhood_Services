@@ -27,7 +27,7 @@ const userSchema = new Schema({
   orders: [Order.schema],
   dues: {
     type: Number,
-    default: 0,
+    default: 500,
   },
   profileImage: {
     type: String,

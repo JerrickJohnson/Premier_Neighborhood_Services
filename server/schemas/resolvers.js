@@ -26,18 +26,15 @@ const resolvers = {
     product: async (parent, { _id }) => {
       return await Product.findById(_id).populate('category');
     },
-    user: async (parent, args, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-          path: 'orders.products',
-          populate: 'category'
-        });
-
-        user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
-
-        return user;
+    user: async (parent, { id }, context) => {
+      if (id) {
+        return await User.findById(id);
       }
-
+    
+      if (context.user) {
+        return await User.findById(context.user._id);
+      }
+    
       throw new AuthenticationError('Not logged in');
     },
     order: async (parent, { _id }, context) => {
@@ -54,12 +51,13 @@ const resolvers = {
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
-      await new Order({ products: args.products });
       const line_items = [];
 
-      // eslint-disable-next-line no-restricted-syntax
+      let totalAmount = 0;
+
       for (const product of args.products) {
-        // Create a line item for each product
+        totalAmount += product.price * product.purchaseQuantity;
+
         line_items.push({
           price_data: {
             currency: 'usd',
@@ -81,10 +79,10 @@ const resolvers = {
         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${url}/`,
       });
+      
       const order = new Order({ products: args.products, session: session.id });
       await order.save();
 
-      // Create a new Payment record
       if (context.user) {
         await Payment.create({
           user: context.user._id,
@@ -102,6 +100,12 @@ const resolvers = {
     },
     services: async () => {
       return await Service.find().populate('review');
+    },
+    payments: async () => {
+      return await Payment.find().populate('user');
+    },
+    userPayments: async (parent, { userId }, context) => {
+      return await Payment.find({ user: userId }).populate('user');
     },
   },
   Mutation: {
@@ -123,19 +127,18 @@ const resolvers = {
       return { token, user };
     },
     addProduct: async (parent, { name, description, image, price, quantity, category }, context) => {
-      console.log(context);
-      const loggedInUserId = context.loggedInUserId;
       if (context.user) {
         const product = new Product({
-           name,
-           description,
-           image,
-           price,
-           quantity,
-           category,
-           seller: context.user._id});
+          name,
+          description,
+          image,
+          price,
+          quantity,
+          category,
+          seller: context.user._id
+        });
 
-           await product.save();
+        await product.save();
 
         return product;
       }
@@ -144,7 +147,6 @@ const resolvers = {
     },
     
     addOrder: async (parent, { products }, context) => {
-      console.log(context);
       if (context.user) {
         const order = new Order({ products });
 

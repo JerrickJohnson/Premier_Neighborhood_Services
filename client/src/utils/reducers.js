@@ -81,6 +81,8 @@ export const reducer = (state, action) => {
         currentCategory: action.currentCategory
       };
 
+      
+
     default:
       return state;
   }
