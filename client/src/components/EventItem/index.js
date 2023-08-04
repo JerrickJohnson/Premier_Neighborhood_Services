@@ -28,7 +28,7 @@ function EventItem(item) {
             <p>Time: {new Date(parseInt(date)).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</p>
             <p>Location: {location}</p>
             {/* <p>Likes: {likes}</p> */}
-            <a href="/events/1" className="btn btn-primary">More Info</a>
+            {/* <a href="/events/1" className="btn btn-primary">More Info</a> */}
         </div>
     );
 }
