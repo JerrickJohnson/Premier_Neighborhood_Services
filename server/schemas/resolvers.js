@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Product, Category, Order, Service, Events, Review } = require('../models');
+const { User, Product, Category, Order, Service, Events, Review, Payment } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -81,7 +81,20 @@ const resolvers = {
         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${url}/`,
       });
+      const order = new Order({ products: args.products, session: session.id });
+      await order.save();
 
+      // Create a new Payment record
+      if (context.user) {
+        await Payment.create({
+          user: context.user._id,
+          amount: totalAmount,
+          paymentMethod: 'stripe',
+          paymentDate: new Date(),
+          paymentPurpose: 'Order Checkout',
+          status: 'pending'
+        });
+      }
       return { session: session.id };
     },
     events: async () => {

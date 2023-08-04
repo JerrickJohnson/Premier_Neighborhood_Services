@@ -7,7 +7,6 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
@@ -18,10 +17,11 @@ import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 import Services from './pages/Services';
-
 import Events from './pages/Events';
 import Marketplace from './pages/Marketplace';
 import AddItem from './pages/AddItem';
+import NewEvent from './pages/NewEvent';
+import PaymentPage from './pages/PaymentPage';
 
 
 
@@ -104,6 +104,14 @@ function App() {
                 path="/events"
                 element={<Events />}
               />
+              <Route
+                path="/newevent"
+                element={<NewEvent />}
+              />
+             <Route
+                path="/payments"
+                element={<PaymentPage />}   
+              />           
             </Routes>
           </StoreProvider>
         </div>
