@@ -20,7 +20,10 @@ import Services from './pages/Services';
 import Events from './pages/Events';
 import Marketplace from './pages/Marketplace';
 import AddItem from './pages/AddItem';
+import NewEvent from './pages/NewEvent';
 import PaymentPage from './pages/PaymentPage';
+
+
 
 import ServiceRequests from './pages/ServiceRequests';
 
@@ -102,9 +105,13 @@ function App() {
                 element={<Events />}
               />
               <Route
-                path="/payments"
-                element={<PaymentPage />}
+                path="/newevent"
+                element={<NewEvent />}
               />
+             <Route
+                path="/payments"
+                element={<PaymentPage />}   
+              />           
             </Routes>
           </StoreProvider>
         </div>

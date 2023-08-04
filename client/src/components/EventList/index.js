@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import { QUERY_EVENTS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import spinner from '../../assets/spinner.gif';
+import { Link } from "react-router-dom";
 
 function EventList() {
     const { loading, data } = useQuery(QUERY_EVENTS);
@@ -17,11 +18,16 @@ function EventList() {
                 <div className="col">
                     <h3>Upcoming Events</h3>
                 </div>
+                <div className="col d-flex justify-content-end">
+                <button className="btn btn-primary">
+                    <Link to="/newevent" className="text-decoration-none" style={{color: "white"}}>New Event Form</Link> 
+                    </button>
+                </div>
             </div>
             {loading ? (
                 <img src={spinner} alt="loading" />
             ) : (
-                <div className="row mt-4">
+                <div className="row mt-4 d-flex justify-content-center">
                     {events &&
                         events.map((event) => (
                             <EventItem
