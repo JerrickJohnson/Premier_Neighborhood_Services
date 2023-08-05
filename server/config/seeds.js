@@ -15,6 +15,37 @@ db.once('open', async () => {
 
   console.log('categories seeded');
 
+  await User.deleteMany();
+
+  const users = await User.insertMany([
+    {
+    firstName: 'Pamela',
+    lastName: 'Washington',
+    email: 'pamela@testmail.com',
+    password: 'password12345',
+    address: '1 Main St',
+    _id: '60f1b4a6f3e0d7a5f8f7f1b1'
+
+  },
+  {
+    firstName: 'Elijah',
+    lastName: 'Holt',
+    email: 'eholt@testmail.com',
+    password: 'password12345',
+    address: '2 Main St',
+  
+  },
+  {
+    firstName: 'Cesar',
+    lastName: 'Garcia',
+    email: 'cesar@mail.com',
+    password: 'password12345',
+    address: '3 Main St',
+    },
+  ]);
+
+  console.log('users seeded');
+
   await Product.deleteMany();
 
   const products = await Product.insertMany([
@@ -26,6 +57,7 @@ db.once('open', async () => {
       category: categories[0]._id,
       price: 2.99,
       quantity: 500,
+      seller: users[0]._id,
     },
     {
       name: 'Canned Coffee',
@@ -35,6 +67,7 @@ db.once('open', async () => {
       category: categories[0]._id,
       price: 1.99,
       quantity: 500,
+      seller: users[0]._id,
     },
     {
       name: 'Toilet Paper',
@@ -44,6 +77,7 @@ db.once('open', async () => {
       image: 'toilet-paper.jpg',
       price: 7.99,
       quantity: 20,
+      seller: users[0]._id,
     },
     {
       name: 'Handmade Soap',
@@ -53,6 +87,7 @@ db.once('open', async () => {
       image: 'soap.jpg',
       price: 3.99,
       quantity: 50,
+      seller: users[0]._id,
     },
     {
       name: 'Set of Wooden Spoons',
@@ -62,6 +97,7 @@ db.once('open', async () => {
       image: 'wooden-spoons.jpg',
       price: 14.99,
       quantity: 100,
+      seller: users[1]._id,
     },
     {
       name: 'Camera',
@@ -71,6 +107,7 @@ db.once('open', async () => {
       image: 'camera.jpg',
       price: 399.99,
       quantity: 30,
+      seller: users[1]._id,
     },
     {
       name: 'Tablet',
@@ -80,6 +117,7 @@ db.once('open', async () => {
       image: 'tablet.jpg',
       price: 199.99,
       quantity: 30,
+      seller: users[1]._id,
     },
     {
       name: 'Tales at Bedtime',
@@ -89,6 +127,7 @@ db.once('open', async () => {
       image: 'bedtime-book.jpg',
       price: 9.99,
       quantity: 100,
+      seller: users[2]._id,
     },
     {
       name: 'Spinning Top',
@@ -97,6 +136,7 @@ db.once('open', async () => {
       image: 'spinning-top.jpg',
       price: 1.99,
       quantity: 1000,
+      seller: users[2]._id,
     },
     {
       name: 'Set of Plastic Horses',
@@ -106,6 +146,7 @@ db.once('open', async () => {
       image: 'plastic-horses.jpg',
       price: 2.99,
       quantity: 1000,
+      seller: users[2]._id,
     },
     {
       name: 'Teddy Bear',
@@ -115,6 +156,7 @@ db.once('open', async () => {
       image: 'teddy-bear.jpg',
       price: 7.99,
       quantity: 100,
+      seller: users[2]._id,
     },
     {
       name: 'Alphabet Blocks',
@@ -124,6 +166,7 @@ db.once('open', async () => {
       image: 'alphabet-blocks.jpg',
       price: 9.99,
       quantity: 600,
+      seller: users[2]._id,
     },
     ]);
 
@@ -151,29 +194,36 @@ db.once('open', async () => {
 
   // console.log('services seeded');
 
-  await User.deleteMany();
+  // await User.deleteMany();
 
-  const users = await User.insertMany([
-    {
-    firstName: 'Pamela',
-    lastName: 'Washington',
-    email: 'pamela@testmail.com',
-    password: 'password12345',
-    address: '1 Main St',
-    orders: [
-      {
-        products: [products[0]._id, products[0]._id, products[1]._id]
-      }
-    ]
-  },
-  {
-    firstName: 'Elijah',
-    lastName: 'Holt',
-    email: 'eholt@testmail.com',
-    password: 'password12345',
-    address: '2 Main St',
-  },
-  ]);
+  // const users = await User.insertMany([
+  //   {
+  //   firstName: 'Pamela',
+  //   lastName: 'Washington',
+  //   email: 'pamela@testmail.com',
+  //   password: 'password12345',
+  //   address: '1 Main St',
+  //   orders: [
+  //     {
+  //       products: [products[0]._id, products[0]._id, products[1]._id]
+  //     }
+  //   ]
+  // },
+  // {
+  //   firstName: 'Elijah',
+  //   lastName: 'Holt',
+  //   email: 'eholt@testmail.com',
+  //   password: 'password12345',
+  //   address: '2 Main St',
+  // },
+  // {
+  //   firstName: 'Cesar',
+  //   lastName: 'Garcia',
+  //   email: 'cesar@mail.com',
+  //   password: 'password12345',
+  //   address: '3 Main St',
+  //   },
+  // ]);
 
   console.log('users seeded');
 

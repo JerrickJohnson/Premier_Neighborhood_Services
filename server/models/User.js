@@ -29,6 +29,12 @@ const userSchema = new Schema({
     type: Number,
     default: 500,
   },
+  products: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Product'
+    }
+  ],
   profileImage: {
     type: String,
     default: ''

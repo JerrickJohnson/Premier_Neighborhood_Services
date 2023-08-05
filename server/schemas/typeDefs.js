@@ -14,7 +14,7 @@ const typeDefs = gql`
     quantity: Int
     price: Float
     category: Category
-    createdBy: User
+    seller: User
     PurchasedBy: User
   }
 
@@ -37,6 +37,7 @@ const typeDefs = gql`
     address: String
     outstandingDues: Float
     paidDues: Float
+    products: [Product] # Add this field to include the products associated with the user
     profileImage: String
     dues: Float
   }
