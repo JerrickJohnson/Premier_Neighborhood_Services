@@ -68,7 +68,7 @@ app.post('/api/add-product', upload, async (req,res) => {
     description: req.body.description,
     quantity: req.body.quantity,
     category: req.body.category,
-    // seller: req.body.seller,
+    seller: req.body.seller,
     //get the filename specifically so the path works correctly
     image: req.file.filename
   }
