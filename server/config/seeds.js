@@ -194,36 +194,36 @@ db.once('open', async () => {
 
   // console.log('services seeded');
 
-  await User.deleteMany();
+  // await User.deleteMany();
 
-  const users = await User.insertMany([
-    {
-    firstName: 'Pamela',
-    lastName: 'Washington',
-    email: 'pamela@testmail.com',
-    password: 'password12345',
-    address: '1 Main St',
-    orders: [
-      {
-        products: [products[0]._id, products[0]._id, products[1]._id]
-      }
-    ]
-  },
-  {
-    firstName: 'Elijah',
-    lastName: 'Holt',
-    email: 'eholt@testmail.com',
-    password: 'password12345',
-    address: '2 Main St',
-  },
-  {
-    firstName: 'Cesar',
-    lastName: 'Garcia',
-    email: 'cesar@mail.com',
-    password: 'password12345',
-    address: '3 Main St',
-    },
-  ]);
+  // const users = await User.insertMany([
+  //   {
+  //   firstName: 'Pamela',
+  //   lastName: 'Washington',
+  //   email: 'pamela@testmail.com',
+  //   password: 'password12345',
+  //   address: '1 Main St',
+  //   orders: [
+  //     {
+  //       products: [products[0]._id, products[0]._id, products[1]._id]
+  //     }
+  //   ]
+  // },
+  // {
+  //   firstName: 'Elijah',
+  //   lastName: 'Holt',
+  //   email: 'eholt@testmail.com',
+  //   password: 'password12345',
+  //   address: '2 Main St',
+  // },
+  // {
+  //   firstName: 'Cesar',
+  //   lastName: 'Garcia',
+  //   email: 'cesar@mail.com',
+  //   password: 'password12345',
+  //   address: '3 Main St',
+  //   },
+  // ]);
 
   console.log('users seeded');
 

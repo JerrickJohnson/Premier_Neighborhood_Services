@@ -10,6 +10,8 @@ import {
   CLEAR_CART,
   TOGGLE_CART,
   UPDATE_EVENTS,
+  SET_USER,
+  LOGOUT_USER
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -80,6 +82,19 @@ export const reducer = (state, action) => {
         ...state,
         currentCategory: action.currentCategory
       };
+
+      case SET_USER:
+      return {
+        ...state,
+        user: action.user // this would contain the user object
+      };
+
+    case LOGOUT_USER:
+      return {
+        ...state,
+        user: null
+      };
+
 
     default:
       return state;

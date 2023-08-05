@@ -38,6 +38,7 @@ const typeDefs = gql`
     address: String
     outstandingDues: Float
     paidDues: Float
+    products: [Product] # Add this field to include the products associated with the user
   }
 
   type Checkout {
