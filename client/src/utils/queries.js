@@ -51,8 +51,10 @@ export const QUERY_CATEGORIES = gql`
 export const QUERY_USER = gql`
   {
     user {
+      _id
       firstName
       lastName
+      dues
       orders {
         _id
         purchaseDate
@@ -74,21 +76,54 @@ export const QUERY_EVENTS = gql`
     events {
       name
       location
-      likes
-      isPublic
-      host {
-        firstName
-        lastName
-      }
       description
       date
-      attendees {
-        firstName
-        lastName
-      }
       _id
     }
   }
 `;
 
+export const CREATE_CHECKOUT_SESSION = gql`
+  mutation checkout($id: ID!) {
+    checkout(id: $id) {
+      session
+    }
+  }
+`;
 
+export const UPDATE_USER = gql`
+  mutation updateUser($id: ID!, $dues: Int!) {
+    updateUser(id: $id, dues: $dues) {
+      _id
+      dues
+    }
+  }
+`;
+
+export const QUERY_USER_PAYMENT_INFO = gql`
+  query getUserPaymentInfo($id: ID!) {
+    user(id: $id) {
+      _id
+      firstName
+      lastName
+      address
+      dues
+    }
+  }
+`;
+
+export const QUERY_USER_PAYMENTS = gql`
+  query getUserPayments($userId: ID!) {
+    payments(userId: $userId) {
+      _id
+      user {
+        _id
+      }
+      amount
+      paymentMethod
+      paymentDate
+      paymentPurpose
+      status
+    }
+  }
+`;

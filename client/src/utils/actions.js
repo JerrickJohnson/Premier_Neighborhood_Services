@@ -15,7 +15,8 @@ export const ADD_LIKE = "ADD_LIKE";
 export const REMOVE_LIKE = "REMOVE_LIKE";
 export const ADD_ATTENDEE = "ADD_ATTENDEE";
 export const REMOVE_ATTENDEE = "REMOVE_ATTENDEE";
-export const ADD_EVENT = "ADD_EVENT";
-export const REMOVE_EVENT = "REMOVE_EVENT";
 export const ADD_ORDER = "ADD_ORDER";
 export const UPDATE_ORDERS = "UPDATE_ORDERS";
+
+export const SET_USER = "SET_USER";
+export const LOGOUT_USER = "LOGOUT_USER";

@@ -29,9 +29,14 @@ const resolvers = {
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: 'orders.products',
-          populate: 'category'
-        });
+          path: 'orders',
+          populate: {
+            path: 'products', // Populate the products inside orders
+            model: 'Product', // The model of the products
+            populate: 'category' // Populate the category inside products
+          }
+        })
+        .populate('products'); // Populate the products
 
         user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
 
@@ -124,18 +129,22 @@ const resolvers = {
     },
     addProduct: async (parent, { name, description, image, price, quantity, category }, context) => {
       console.log(context);
-      const loggedInUserId = context.loggedInUserId;
+      // const loggedInUserId = context.loggedInUserId;
       if (context.user) {
-        const product = new Product({
+        // const product = new Product({
+        const product = await Product.create({
            name,
            description,
            image,
            price,
            quantity,
            category,
-           seller: context.user._id});
+           seller: context.user._id
+        });
 
-           await product.save();
+          // Update the user's products field with the new product's ID
+              await User.findByIdAndUpdate(context.user._id, { $push: { products: product._id } });
+          //  await product.save();
 
         return product;
       }
@@ -157,9 +166,10 @@ const resolvers = {
     },
     addEvent: async (parent, args, context) => {
       if (context.user) {
+   
         const event = await Events.create(args);
 
-        await User.findByIdAndUpdate(context.user._id, { $push: { events: event._id } });
+        // await User.findByIdAndUpdate(context.user._id, { $push: { events: event._id } });
 
         return event;
       }
