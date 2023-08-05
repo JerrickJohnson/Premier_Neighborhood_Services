@@ -76,18 +76,8 @@ export const QUERY_EVENTS = gql`
     events {
       name
       location
-      likes
-      isPublic
-      host {
-        firstName
-        lastName
-      }
       description
       date
-      attendees {
-        firstName
-        lastName
-      }
       _id
     }
   }

@@ -61,7 +61,7 @@ const typeDefs = gql`
     description: String
     date: String
     location: String
-    host: User
+    host: [User]
     attendees: [User]
     isPublic: Boolean
     likes: Int
@@ -131,7 +131,7 @@ const typeDefs = gql`
       emergencyContactPhoneNumber: String
     ): User
     addOrder(products: [ID]!): Order
-    addEvent(name: String!, date: String!, description: String!, attendees: Int!): Events
+    addEvent(name: String, date: String, description: String, location: String): Events
     addReview(reviewText: String!, rating: Int!, service: ID!): Service
     addService(name: String!, rating: Int!, category: String!, image: String!): Service
     updateProduct(_id: ID!, quantity: Int!): Product
