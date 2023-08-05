@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
-import { ADD_PRODUCT } from '../../utils/mutations'; // Your mutation query
+// import { ADD_PRODUCT } from '../../utils/mutations'; // Your mutation query
 import { QUERY_CATEGORIES } from '../../utils/queries';
 
 
@@ -13,10 +13,10 @@ function AddProductForm({ loggedInUserId }) {
     price: 0,
     quantity: 0,
     category: '',
-    // seller: loggedInUserId // Set the seller using the prop
+    seller: loggedInUserId // Set the seller using the prop
   });
 
-  const [addProductMutation] = useMutation(ADD_PRODUCT);// Add the mutation to the component
+  // const [addProductMutation] = useMutation(ADD_PRODUCT);// Add the mutation to the component
 
   const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
