@@ -49,13 +49,8 @@ export const QUERY_CATEGORIES = gql`
 `;
 
 export const QUERY_USER = gql`
-<<<<<<< HEAD
-  query getUser($id: ID!) {
-    user(id: $id) {
-=======
   {
     user {
->>>>>>> bc13fe5c57dfc84ef79e0c5df55d4850d8bbaba9
       _id
       firstName
       lastName

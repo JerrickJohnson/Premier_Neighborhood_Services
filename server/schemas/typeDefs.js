@@ -32,19 +32,13 @@ const typeDefs = gql`
     password: String
     dob: String
     phoneNumber: String
-    emergencyContact: EmergencyContact
+    emergencyContact: String
+    emergencyContactPhoneNumber: String
     orders: [Order]
     address: String
     outstandingDues: Float
     paidDues: Float
     products: [Product] # Add this field to include the products associated with the user
-    profileImage: String
-    dues: Float
-  }
-  
-  type EmergencyContact {
-    name: String
-    phone: String
   }
 
   type Checkout {
@@ -98,14 +92,11 @@ const typeDefs = gql`
     categories: [Category]
     products(category: ID, name: String): [Product]
     product(_id: ID!): Product
-    user(id: ID): User
+    user: User
     order(_id: ID!): Order
     checkout(products: [ProductInput]): Checkout
-    payFees(userId: ID!, feesAmount: Float!): Checkout
     events: [Events]
     services: [Service]
-    payments: [Payment]
-    userPayments(userId: ID!): [Payment]
   }
 
   type Mutation {
@@ -137,33 +128,20 @@ const typeDefs = gql`
     addService(name: String!, rating: Int!, category: String!, image: String!): Service
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
+    # Add the addProduct mutation
     addProduct(
       name: String!,
       description: String!,
       image: String!,
       price: Float!,
       quantity: Int!, 
-      category: String!,
-      seller: String!
+      category: String!
+      seller: ID!
     ): Product
-    addPayment(
-      user: ID!,
-      amount: Float!,
-      paymentMethod: String!,
-      paymentDate: String!,
-      paymentPurpose: String!,
-      status: String!
-    ): Payment
   }
-  type Payment {
-    _id: ID
-    user: User
-    amount: Float
-    paymentMethod: String
-    paymentDate: String
-    paymentPurpose: String
-    status: String
-  }
+  
+
 `;
+
 
 module.exports = typeDefs;

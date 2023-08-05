@@ -83,9 +83,6 @@ export const reducer = (state, action) => {
         currentCategory: action.currentCategory
       };
 
-<<<<<<< HEAD
-      
-=======
       case SET_USER:
       return {
         ...state,
@@ -98,7 +95,6 @@ export const reducer = (state, action) => {
         user: null
       };
 
->>>>>>> bc13fe5c57dfc84ef79e0c5df55d4850d8bbaba9
 
     default:
       return state;

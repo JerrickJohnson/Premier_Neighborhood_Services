@@ -58,7 +58,7 @@ mutation Mutation(
     $price: Float!, 
     $quantity: Int!, 
     $category: String!, 
-    $seller: String!
+    $seller: ID!    
   ) {
   addProduct(
     name: $name, 
