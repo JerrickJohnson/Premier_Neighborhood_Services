@@ -41,8 +41,10 @@ class AuthService {
     window.location.assign('/');
   }
   getUserId() {
-    const profile = this.getProfile();
-    return profile?._id;
+    const token = this.getToken();
+    const decodedToken = decode(token); 
+    console.log("Decoded token: ", decodedToken);
+    return decodedToken?.data?._id;
   }
 }
 

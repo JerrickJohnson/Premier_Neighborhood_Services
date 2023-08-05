@@ -136,9 +136,10 @@ const typeDefs = gql`
       price: Float!,
       quantity: Int!, 
       category: String!
-      seller: String!
+      seller: ID!
     ): Product
   }
+  
 
 `;
 
