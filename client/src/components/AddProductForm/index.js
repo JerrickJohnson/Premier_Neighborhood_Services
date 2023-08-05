@@ -3,9 +3,16 @@ import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
 import { ADD_PRODUCT } from '../../utils/mutations'; // Your mutation query
 import { QUERY_CATEGORIES } from '../../utils/queries';
+import Auth from '../../utils/auth';
 
 
-function AddProductForm({ loggedInUserId }) {
+
+function AddProductForm() {
+
+  const userProfile = Auth.getProfile();
+
+  const userId = userProfile.data._id;
+
   const [formState, setFormState] = useState({
     name: '',
     description: '',
@@ -13,28 +20,48 @@ function AddProductForm({ loggedInUserId }) {
     price: 0,
     quantity: 0,
     category: '',
-    // seller: loggedInUserId // Set the seller using the prop
+    seller: userId // Set the seller using the prop
   });
 
-  const [addProductMutation] = useMutation(ADD_PRODUCT);// Add the mutation to the component
+  const [addProductMutation] = useMutation(ADD_PRODUCT, {
+    refetchQueries: [{ query: QUERY_CATEGORIES }],
+  });
+  // Add the mutation to the component
 
   const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    //submit form values in HTML using the name attribute
-    document.theForm.submit();
-
-    //reset the form values
-    setFormState({
-      name: '',
-      description: '',
-      image: '',
-      price: 0,
-      quantity: 0,
-      category: '',
-      // seller: loggedInUserId // Reset seller to the logged-in user
-    })
+    // Move the userProfile and userId initialization here
+    const userProfile = Auth.getProfile();
+    const userId = userProfile.data._id;
+    try {
+      // Call the mutation action with the form data
+      const { data } = await addProductMutation({
+        variables: {
+          name: formState.name,
+          description: formState.description,
+          image: formState.image,
+          price: parseFloat(formState.price),
+          quantity: parseInt(formState.quantity),
+          category: formState.category,
+          seller: userId, // Include the seller ID in the mutation variables
+        },
+      });
+      console.log(data);
+      // Reset form data after successful submission
+      setFormState({
+        name: '',
+        description: '',
+        image: '',
+        price: 0,
+        quantity: 0,
+        category: '',
+        seller: userId, // keep the seller ID in the form state
+      });
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
   };
 
 
@@ -46,15 +73,16 @@ function AddProductForm({ loggedInUserId }) {
       [name]: value,
     });
   };
-
+  
   if (loading || !categoryData) {
     return <p>Loading categories...</p>;
   }
 
+
   return (
     <div>
       {/* prevent redirecting to a new page on submit */}
-      <iframe name="dummyframe" id="dummyframe" style={{display: 'none'}}></iframe>
+      {/* <iframe name="dummyframe" id="dummyframe" style={{display: 'none'}}></iframe> */}
       <form action="/api/add-product" name="theForm" method="post" encType='multipart/form-data' target="dummyframe">
       {/* <form onSubmit={handleFormSubmit} encType='multipart/form-data'> */}
         <div className="flex-row space-between my-2">
@@ -129,7 +157,7 @@ function AddProductForm({ loggedInUserId }) {
         <div className="flex-row space-between my-2">
           <label htmlFor="image">Image:</label>
           <input
-            type="file"
+            type="text"
             id="image"
             name="image"
             value={formState.image}
@@ -142,5 +170,7 @@ function AddProductForm({ loggedInUserId }) {
     </div>
   );
 };
+
+
 
 export default AddProductForm;
