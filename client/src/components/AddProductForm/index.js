@@ -22,7 +22,7 @@ function AddProductForm() {
     category: '',
     seller: userId // Set the seller using the prop
   });
-
+  console.log(userId)
   const [addProductMutation] = useMutation(ADD_PRODUCT, {
     refetchQueries: [{ query: QUERY_CATEGORIES }],
   });
