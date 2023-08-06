@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { ADD_PRODUCT } from '../../utils/mutations'; // Your mutation query
 import { QUERY_CATEGORIES } from '../../utils/queries';
 import Auth from '../../utils/auth';
-import './style.css';
+
 
 
 function AddProductForm() {
@@ -23,7 +23,7 @@ function AddProductForm() {
     category: '',
     seller: userId // Set the seller using the prop
   });
-  console.log(userId)
+
   const [addProductMutation] = useMutation(ADD_PRODUCT, {
     refetchQueries: [{ query: QUERY_CATEGORIES }],
   });
@@ -97,12 +97,12 @@ function AddProductForm() {
 
 
   return (
-    <div  >
+    <div>
       {/* prevent redirecting to a new page on submit */}
       <iframe name="dummyframe" id="dummyframe" style={{display: 'none'}}></iframe>
       <form action="/api/add-product" name="theForm" method="post" encType='multipart/form-data' target="dummyframe">
       {/* <form onSubmit={handleFormSubmit} encType='multipart/form-data'> */}
-        <div className="flex-row space-between my-2 ">      
+        <div className="flex-row space-between my-2">
           <label htmlFor="name">Product Name:</label>
           <input
             type="text"
@@ -112,7 +112,6 @@ function AddProductForm() {
             onChange={handleChange}
             required
           />
-       
         </div>
         <div className="flex-row space-between my-2">
           <label htmlFor="description">Product Description:</label>

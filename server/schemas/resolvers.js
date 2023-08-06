@@ -155,26 +155,26 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    removeProduct: async (parent, { id }, context) => {
+    removeProduct: async (parent, { _id }, context) => { // Correctly using _id here
       if (context.user) {
-        const product = await Product.findById(id);
-        
+        const product = await Product.findById(_id); // Corrected to _id
+            
         if (!product) {
           throw new Error('No product found with this id');
         }
-  
+      
         if (String(product.seller) !== String(context.user._id)) {
           throw new Error('You are not authorized to delete this product');
         }
-  
-        await Product.findByIdAndRemove(id);
-  
+      
+        await Product.findByIdAndRemove(_id);
+      
         // remove the product from the user's products list
-        await User.findByIdAndUpdate(context.user._id, { $pull: { products: id } });
-  
+        await User.findByIdAndUpdate(context.user._id, { $pull: { products: _id } });
+      
         return product;
       }
-  
+      
       throw new AuthenticationError('Not logged in');
     },
     

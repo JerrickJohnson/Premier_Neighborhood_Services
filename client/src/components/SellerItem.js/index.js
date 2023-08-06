@@ -5,10 +5,16 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { idbPromise } from "../../utils/helpers";
 import { useMutation } from '@apollo/client';
 import { REMOVE_PRODUCT } from '../../utils/mutations';
+import { QUERY_SELLER_PRODUCTS } from '../../utils/queries';
+import Auth from '../../utils/auth';
 import './style.css';
 
 
 function SellerItem(item) {
+
+    const userProfile = Auth.getProfile();
+    const userId = userProfile.data._id;
+
     const [state] = useStoreContext();
   
     const {
@@ -18,7 +24,9 @@ function SellerItem(item) {
       price,
     } = item;
   
-    const [removeProduct] = useMutation(REMOVE_PRODUCT);
+    const [removeProduct] = useMutation(REMOVE_PRODUCT, {
+        refetchQueries: [{ query: QUERY_SELLER_PRODUCTS, variables: { sellerId: userId } }],
+      });
   
     const removeItem = async () => {
       try {
