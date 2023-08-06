@@ -287,3 +287,11 @@ export const GET_MESSAGES = gql`
     }
   }
 `;
+
+export const REMOVE_PRODUCT = gql`
+  mutation RemoveProduct($_id: ID!) {
+  removeProduct(_id: $_id) {
+    _id
+  }
+}
+`;

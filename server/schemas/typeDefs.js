@@ -107,6 +107,7 @@ const typeDefs = gql`
     checkout(products: [ProductInput]): Checkout
     events: [Events]
     services: [Service]
+    sellerProducts(sellerId: ID!): [Product]
     messages(sender: ID!, receiver: ID!, product: ID): [Message]
     messageHistory(user: ID!): [User]
     productMessages(product: ID!): [Message]
@@ -150,6 +151,7 @@ const typeDefs = gql`
       category: String!
       seller: ID!
     ): Product
+    removeProduct(_id: ID!): Product  
     sendMessage(sender: ID!, receiver: ID!, messageText: String!, product: ID!): Message
   }
 `;
