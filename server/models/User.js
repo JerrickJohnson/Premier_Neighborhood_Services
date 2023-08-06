@@ -61,6 +61,12 @@ const userSchema = new Schema({
       required: false, //update to true later
     },
   },
+  contacts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
 });
 
 // set up pre-save middleware to create password

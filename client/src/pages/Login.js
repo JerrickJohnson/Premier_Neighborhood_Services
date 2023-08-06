@@ -3,11 +3,15 @@ import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
-
+import { useStoreContext } from '../utils/GlobalState';
+import { SET_USER } from '../utils/actions';
 
 function Login(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
+  
+  // Getting dispatch from Global State
+  const [, dispatch] = useStoreContext();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -16,7 +20,14 @@ function Login(props) {
         variables: { email: formState.email, password: formState.password },
       });
       const token = mutationResponse.data.login.token;
+      const user = mutationResponse.data.login.user;
       Auth.login(token);
+
+      // Dispatch user details to global state
+      dispatch({
+        type: SET_USER,
+        user: user
+      });
     } catch (e) {
       console.log(e);
     }
@@ -30,19 +41,17 @@ function Login(props) {
     });
   };
 
-const yourImage = ('images/Corktown_101.jpg')
+  const yourImage = 'images/Corktown_101.jpg';
 
-const style = {
-  backgroundImage: `url(${yourImage})`,
-  backgroundSize: "cover",
-  height: "1000px",
-  width: "2000px"
-};
-
+  const style = {
+    backgroundImage: `url(${yourImage})`,
+    backgroundSize: "cover",
+    height: "1000px",
+    width: "2000px"
+  };
 
   return (
-    <div className="container my-1"
-       style={style}>
+    <div className="container my-1" style={style}>
       <Link to="/signup">← Go to Signup</Link>
 
       <h2>Login</h2>
@@ -77,7 +86,6 @@ const style = {
         </div>
       </form>
     </div>
-    
   );
 }
 

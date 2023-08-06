@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { pluralize } from "../../utils/helpers"
+import { pluralize } from "../../utils/helpers";
 import { useStoreContext } from "../../utils/GlobalState";
-import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
-import { idbPromise } from "../../utils/helpers";
+import { ADD_MESSAGE } from "../../utils/actions";
+import { useMutation } from '@apollo/client';
+import { SEND_MESSAGE } from '../../utils/mutations';  
 import './style.css';
-
 
 function ProductItem(item) {
   const [state, dispatch] = useStoreContext();
-
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [offerValue, setOfferValue] = useState('');
+  const [sendMessage] = useMutation(SEND_MESSAGE);
+  console.log("Global State:", state);
   const {
     image,
     name,
@@ -20,69 +23,100 @@ function ProductItem(item) {
     seller
   } = item;
 
-  const { cart } = state
+  const openModal = () => {
+    setOfferValue(price);
+    setModalOpen(true);
+  };
 
-  const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id)
-    if (itemInCart) {
-      dispatch({
-        type: UPDATE_CART_QUANTITY,
-        _id: _id,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
-      idbPromise('cart', 'put', {
-        ...itemInCart,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
-    } else {
-      dispatch({
-        type: ADD_TO_CART,
-        product: { ...item, purchaseQuantity: 1 }
-      });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleOfferChange = (event) => {
+    setOfferValue(event.target.value);
+  };
+
+  const sendOffer = async () => {
+    console.log('Detailed User Object:', state.user);
+    // Construct the offerMessage first
+    const offerMessage = {
+      content: `I would like to buy your ${name} - ${description} for $${offerValue}.`,
+      sender: state.user.data._id,
+      receiver: seller._id,
+      product: _id, // This is the product ID
+      timestamp: Date.now(),
+      isOffer: true
+    };
+
+    // Log the state user and offerMessage for troubleshooting
+    console.log('State User:', state.user);
+    console.log('Offer Message:', offerMessage);
+
+    if (!state.user) {
+      alert('You must be logged in to make an offer.');
+      return;
     }
-  }
+
+    if (!seller || !seller._id) {
+      alert('Seller information is missing. Cannot send offer.');
+      return;
+    }
+
+    try {
+      const { data } = await sendMessage({
+        variables: {
+          sender: offerMessage.sender,  
+          receiver: offerMessage.receiver,
+          product: offerMessage.product,  
+          messageText: offerMessage.content
+        }
+      });
+
+      // Assuming the sendMessage mutation returns the saved message
+      const savedMessage = data.sendMessage;
+
+      // Dispatch the ADD_MESSAGE action to update the global state
+      dispatch({
+        type: ADD_MESSAGE,
+        message: savedMessage
+      });
+
+      // Close modal and reset the offer value after sending
+      setModalOpen(false);
+      setOfferValue('');
+
+      alert('Your offer has been sent to the seller.');
+
+    } catch (error) {
+      console.error('Error sending offer:', error);
+    }
+};
 
   return (
     <div className="card px-1 py-1">
       <Link to={`/products/${_id}`}>
-        <img
-          alt={name}
-          src={`/images/${image}`}
-        />
+        <img alt={name} src={`/images/${image}`} />
         <p>{name}</p>
       </Link>
       <div>
         <div>{quantity} {pluralize("item", quantity)} in stock</div>
         <span>${price}</span>
       </div>
-      <button onClick={addToCart}>Make Offer</button>
+      <button onClick={openModal}>Make Offer</button>
+      {isModalOpen && (
+        <div className="offer-modal">
+          <h4>Enter Your Offer</h4>
+          <input 
+            type="number" 
+            value={offerValue} 
+            onChange={handleOfferChange} 
+          />
+          <button onClick={sendOffer}>Send Offer</button>
+          <button onClick={closeModal}>Cancel</button>
+        </div>
+      )}
     </div>
   );
-
-//   return (
-//     <div className="card mb-3" style={{width: '80%', marginBottom: '20px', border: '1px solid #ccc', padding: '10px'}}>
-//   <div className="row g-0">
-//     <div className="col-md-4">
-//     <Link to={`/products/${_id}`}>
-//       <img src={`/images/${image}`} className="img-fluid rounded-start" alt={name}></img>
-//       </Link>
-//     </div>
-//     <div className="col-md-8">
-//       <div className="card-body">
-//         <h5 className="card-title">{name}</h5>
-//         <p className="card-text">{description}</p>
-//         <p className="card-text">{seller}</p>
-//         {/* <p className="card-text">{quantity} {pluralize("item", quantity)} available</p> */}
-//         <p className="card-text"><small className="text-body-secondary">${price}</small></p>
-//         <button onClick={addToCart}>Buy Item</button>
-//       </div>
-//     </div>
-//   </div>
-// </div>
-//   );
-    
-
 }
 
 export default ProductItem;
