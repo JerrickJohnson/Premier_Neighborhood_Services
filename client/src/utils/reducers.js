@@ -9,9 +9,11 @@ import {
   UPDATE_CURRENT_CATEGORY,
   CLEAR_CART,
   TOGGLE_CART,
-  UPDATE_EVENTS,
   SET_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  UPDATE_MESSAGES,
+  ADD_MESSAGE,
+  UPDATE_CURRENT_RECEIVER,
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -83,10 +85,10 @@ export const reducer = (state, action) => {
         currentCategory: action.currentCategory
       };
 
-      case SET_USER:
+    case SET_USER:
       return {
         ...state,
-        user: action.user // this would contain the user object
+        user: action.user
       };
 
     case LOGOUT_USER:
@@ -94,7 +96,24 @@ export const reducer = (state, action) => {
         ...state,
         user: null
       };
+    
+    case UPDATE_MESSAGES:
+      return {
+        ...state,
+        messages: [...action.messages],
+      };
 
+    case ADD_MESSAGE:
+      return {
+        ...state,
+        messages: [action.message, ...state.messages],
+      };
+
+    case UPDATE_CURRENT_RECEIVER:
+      return {
+        ...state,
+        currentReceiver: action.currentReceiver
+      };
 
     default:
       return state;

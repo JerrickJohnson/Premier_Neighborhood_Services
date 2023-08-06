@@ -1,5 +1,4 @@
 export const UPDATE_PRODUCTS = "UPDATE_PRODUCTS";
-
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_MULTIPLE_TO_CART = "ADD_MULTIPLE_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
@@ -17,6 +16,8 @@ export const ADD_ATTENDEE = "ADD_ATTENDEE";
 export const REMOVE_ATTENDEE = "REMOVE_ATTENDEE";
 export const ADD_ORDER = "ADD_ORDER";
 export const UPDATE_ORDERS = "UPDATE_ORDERS";
-
 export const SET_USER = "SET_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
+export const UPDATE_MESSAGES = "UPDATE_MESSAGES";
+export const ADD_MESSAGE = "ADD_MESSAGE";
+export const UPDATE_CURRENT_RECEIVER = "UPDATE_CURRENT_RECEIVER";

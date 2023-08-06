@@ -38,7 +38,8 @@ const typeDefs = gql`
     address: String
     outstandingDues: Float
     paidDues: Float
-    products: [Product] # Add this field to include the products associated with the user
+    products: [Product]
+    messages: [Message] # Add this field to include the messages associated with the user
   }
 
   type Checkout {
@@ -79,6 +80,15 @@ const typeDefs = gql`
     image: String
   }
 
+  type Message {
+    _id: ID
+    sender: User
+    receiver: User
+    messageText: String
+    createdAt: String
+    product: Product
+  }
+
   input ProductInput {
     _id: ID
     purchaseQuantity: Int
@@ -97,7 +107,10 @@ const typeDefs = gql`
     checkout(products: [ProductInput]): Checkout
     events: [Events]
     services: [Service]
-  }
+    messages(sender: ID!, receiver: ID!, product: ID): [Message]
+    messageHistory(user: ID!): [User]
+    productMessages(product: ID!): [Message]
+}
 
   type Mutation {
     addUser(
@@ -128,7 +141,6 @@ const typeDefs = gql`
     addService(name: String!, rating: Int!, category: String!, image: String!): Service
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
-    # Add the addProduct mutation
     addProduct(
       name: String!,
       description: String!,
@@ -138,10 +150,8 @@ const typeDefs = gql`
       category: String!
       seller: ID!
     ): Product
+    sendMessage(sender: ID!, receiver: ID!, messageText: String!, product: ID!): Message
   }
-  
-
 `;
-
 
 module.exports = typeDefs;

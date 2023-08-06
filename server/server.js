@@ -1,17 +1,19 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const http = require('http');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
+const { Server } = require("socket.io");
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-//Model needed for REST API route for multer
+
 const { Product } = require('./models/')
 
-//MULTER CODE
+// MULTER CODE
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -22,34 +24,26 @@ const storage = multer.diskStorage({
     console.log(file)
     cb(null, Date.now() + path.extname(file.originalname))
   }
-})
-
-const upload = multer({ 
-  storage: storage,
-limits: {fileSize: '1000000'},
-fileFilter: (req, file, cb) => {
-  const fileTypes = /jpeg|jpg|png|gif/
-  const mimType = fileTypes.test(file.mimetype)
-  const extname = fileTypes.test(path.extname(file.originalname))
-
-  if(mimType && extname) {
-    return cb(null, true)
-  }
-  cb('Give proper files format to upload')
-}
- }).single('image');
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: authMiddleware,
-
 });
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: '1000000' },
+  fileFilter: (req, file, cb) => {
+    const fileTypes = /jpeg|jpg|png|gif/
+    const mimType = fileTypes.test(file.mimetype)
+    const extname = fileTypes.test(path.extname(file.originalname))
+
+    if (mimType && extname) {
+      return cb(null, true)
+    }
+    cb('Give proper files format to upload')
+  }
+}).single('image');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Serve up static assets
 app.use('/images', express.static(path.join(__dirname, '../client/images')));
 
 if (process.env.NODE_ENV === 'production') {
@@ -60,8 +54,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-//MULTER REST ROUTE - TEST OBJECT DATA STILL
-app.post('/api/add-product', upload, async (req,res) => {
+app.post('/api/add-product', upload, async (req, res) => {
   const newProductData = {
     name: req.body.name,
     price: req.body.price,
@@ -79,21 +72,53 @@ app.post('/api/add-product', upload, async (req,res) => {
   } catch (err) {
     res.status(400).json(err);
   }
-})
+});
 
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: authMiddleware,
+  subscriptions: {
+    path: '/graphql',
+    onConnect: () => console.log('Client connected for subscriptions.'),
+    onDisconnect: () => console.log('Client disconnected from subscriptions.')
+  }
+});
 
-// Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async () => {
   await server.start();
-  server.applyMiddleware({ app });
   
+  server.applyMiddleware({ app, path: '/graphql' });
+  
+  const httpServer = http.createServer(app);
+
+  const io = new Server(httpServer, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
+
+  io.on("connection", (socket) => {
+    console.log(`Socket connected: ${socket.id}`);
+
+    socket.on('chat message', (msg) => {
+      console.log('message: ' + msg);
+      io.emit('chat message', msg);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('User had left');
+    });
+  });
+
   db.once('open', () => {
-    app.listen(PORT, () => {
+    httpServer.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-    })
-  })
-  };
-  
-// Call the async function to start the server
-  startApolloServer();
+      console.log(`Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`);
+    });
+  });
+};
+
+startApolloServer();
