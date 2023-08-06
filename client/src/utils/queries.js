@@ -20,6 +20,27 @@ export const QUERY_PRODUCTS = gql`
     }
   }
 `;
+
+export const QUERY_SELLER_PRODUCTS = gql`
+  query getSellerProducts($sellerId: ID!) {
+    sellerProducts(sellerId: $sellerId) {
+      _id
+      name
+      description
+      price
+      quantity
+      image
+      category {
+        _id
+      }
+      seller {
+        _id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
 export const QUERY_CHECKOUT = gql`
   query getCheckout($products: [ProductInput]) {
     checkout(products: $products) {
