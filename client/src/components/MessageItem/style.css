@@ -1,0 +1,26 @@
+.message-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 60%; /* adjust this based on your design */
+}
+
+.current-user {
+    background-color: #e6f7ff; /* light blue */
+    margin-left: auto; /* aligns the message to the right */
+}
+
+.sender-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: gray;
+}
+
+.message-media {
+    max-width: 100%;
+    height: auto;
+}

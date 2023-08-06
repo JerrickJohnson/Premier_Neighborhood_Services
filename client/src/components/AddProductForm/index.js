@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { ADD_PRODUCT } from '../../utils/mutations'; // Your mutation query
 import { QUERY_CATEGORIES } from '../../utils/queries';
 import Auth from '../../utils/auth';
-
+import './style.css';
 
 
 function AddProductForm() {

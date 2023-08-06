@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
+import { useStoreContext } from '../utils/GlobalState';
+import { SET_USER } from '../utils/actions';
 
 function Signup(props) {
   const [formState, setFormState] = useState({
@@ -16,7 +18,9 @@ function Signup(props) {
     emergencyContact: '',
     emergencyContactPhoneNumber: ''
   });
+
   const [addUser] = useMutation(ADD_USER);
+  const [, dispatch] = useStoreContext();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -26,7 +30,14 @@ function Signup(props) {
       },
     });
     const token = mutationResponse.data.addUser.token;
+    const user = mutationResponse.data.addUser.user;
     Auth.login(token);
+
+    // Dispatch user details to global state
+    dispatch({
+      type: SET_USER,
+      user: user
+    });
   };
 
   const handleChange = (event) => {
@@ -36,7 +47,7 @@ function Signup(props) {
       [name]: value,
     });
   };
-
+  
   return (
     <div className="container my-1">
       <Link to="/login">← Go to Login</Link>

@@ -252,6 +252,42 @@ export const GET_USER = gql`
   }
 `;
 
+export const SEND_MESSAGE = gql`
+  mutation sendMessage($sender: ID!, $receiver: ID!, $messageText: String!, $product: ID!) {
+    sendMessage(sender: $sender, receiver: $receiver, messageText: $messageText, product: $product) {
+      _id
+      sender {
+        _id
+      }
+      receiver {
+        _id
+      }
+      messageText
+      createdAt
+    }
+  }
+`;
+
+export const GET_MESSAGES = gql`
+  query GetMessages($senderId: ID!, $receiverId: ID!) {
+    messages(senderId: $senderId, receiverId: $receiverId) {
+      _id
+      sender {
+        _id
+        firstName
+        lastName
+      }
+      receiver {
+        _id
+        firstName
+        lastName
+      }
+      messageText
+      createdAt
+    }
+  }
+`;
+
 export const REMOVE_PRODUCT = gql`
   mutation RemoveProduct($_id: ID!) {
   removeProduct(_id: $_id) {

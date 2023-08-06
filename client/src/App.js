@@ -22,10 +22,8 @@ import Marketplace from './pages/Marketplace';
 import AddItem from './pages/AddItem';
 import NewEvent from './pages/NewEvent';
 import PaymentPage from './pages/PaymentPage';
-
-
-
 import ServiceRequests from './pages/ServiceRequests';
+import Message from './pages/Message';
 
 
 
@@ -112,8 +110,13 @@ function App() {
              <Route
                 path="/payments"
                 element={<PaymentPage />}   
-              />           
+              />
+                           <Route
+                path="/message"
+                element={<Message />}   
+              />            
             </Routes>
+            
           </StoreProvider>
         </div>
       </Router>
