@@ -116,6 +116,8 @@ img {
   max-width: 100%;
 }
 
+
+
 .image {
   position: absolute;
   right: 0;
@@ -226,3 +228,4 @@ input:focus {
     width: 100%;
   }
 }
+

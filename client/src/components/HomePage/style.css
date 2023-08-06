@@ -1,0 +1,36 @@
+#headerCarousel {
+  margin-top: -1rem;
+  width: 100vw;
+  height: 900px;  /* Adjust this value based on your needs */
+  overflow: hidden;
+}
+
+#headerCarousel .carousel-inner img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;  /* This will ensure the images cover the full carousel div without stretching */
+}
+
+.welcome-image {
+  max-width: 80%; /* Adjust this percentage to your preference */
+  margin: 0 auto; /* To center the image */
+}
+
+.amenity-image {
+  max-width: 80%; /* Adjust this percentage based on your preference */
+  margin: 0 auto; /* Center the image */
+}
+
+/* For tablets and smaller devices */
+@media (max-width: 768px) {
+  #headerCarousel {
+    height: 650px; /* Adjust this value based on your needs for tablet view */
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+  #headerCarousel {
+    height: 450px; /* Adjust this value based on your needs for mobile view */
+  }
+}
