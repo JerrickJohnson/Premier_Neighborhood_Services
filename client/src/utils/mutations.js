@@ -251,3 +251,11 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const REMOVE_PRODUCT = gql`
+  mutation RemoveProduct($id: ID!) {
+    removeProduct(id: $id) {
+      _id
+    }
+  }
+`;

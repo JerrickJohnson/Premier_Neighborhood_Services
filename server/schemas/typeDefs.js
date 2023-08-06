@@ -97,6 +97,7 @@ const typeDefs = gql`
     checkout(products: [ProductInput]): Checkout
     events: [Events]
     services: [Service]
+    sellerProducts(sellerId: ID!): [Product]
   }
 
   type Mutation {
@@ -138,6 +139,7 @@ const typeDefs = gql`
       category: String!
       seller: ID!
     ): Product
+    removeProduct(_id: ID!): Product  
   }
   
 

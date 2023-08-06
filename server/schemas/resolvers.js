@@ -21,10 +21,13 @@ const resolvers = {
         };
       }
 
-      return await Product.find(params).populate('category');
+      return await Product.find(params).populate('category').populate('seller');
     },
     product: async (parent, { _id }) => {
-      return await Product.findById(_id).populate('category');
+      return await Product.findById(_id).populate('category').populate('seller');
+    },
+    sellerProducts: async (parent, { sellerId }) => {
+      return await Product.find({ seller: sellerId }).populate('category').populate('seller');
     },
     user: async (parent, args, context) => {
       if (context.user) {
@@ -149,6 +152,29 @@ const resolvers = {
         return product;
       }
 
+      throw new AuthenticationError('Not logged in');
+    },
+
+    removeProduct: async (parent, { id }, context) => {
+      if (context.user) {
+        const product = await Product.findById(id);
+        
+        if (!product) {
+          throw new Error('No product found with this id');
+        }
+  
+        if (String(product.seller) !== String(context.user._id)) {
+          throw new Error('You are not authorized to delete this product');
+        }
+  
+        await Product.findByIdAndRemove(id);
+  
+        // remove the product from the user's products list
+        await User.findByIdAndUpdate(context.user._id, { $pull: { products: id } });
+  
+        return product;
+      }
+  
       throw new AuthenticationError('Not logged in');
     },
     
