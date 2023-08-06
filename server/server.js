@@ -18,7 +18,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'images')
+    cb(null, '../client/public/images')
   },
   filename: (req, file, cb) => {
     console.log(file)
@@ -61,8 +61,10 @@ app.post('/api/add-product', upload, async (req, res) => {
     description: req.body.description,
     quantity: req.body.quantity,
     category: req.body.category,
-    image: req.file.path
-  };
+    seller: req.body.seller,
+    //get the filename specifically so the path works correctly
+    image: req.file.filename
+  }
 
   try {
     const newProduct = await Product.create(newProductData);
