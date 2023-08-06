@@ -25,7 +25,7 @@ function SellerItem(item) {
     } = item;
   
     const [removeProduct] = useMutation(REMOVE_PRODUCT, {
-        refetchQueries: [{ query: QUERY_SELLER_PRODUCTS, variables: { sellerId: userId } }],
+        refetchQueries: [{ query: QUERY_SELLER_PRODUCTS, variables: { sellerId: userId } },],
       });
   
     const removeItem = async () => {

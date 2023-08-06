@@ -24,7 +24,10 @@ const resolvers = {
       return await Product.find(params).populate('category').populate('seller');
     },
     product: async (parent, { _id }) => {
-      return await Product.findById(_id).populate('category');
+      return await Product.findById(_id).populate('category').populate('seller');
+    },
+    sellerProducts: async (parent, { sellerId }) => {
+      return await Product.find({ seller: sellerId }).populate('category').populate('seller');
     },
     user: async (parent, args, context) => {
       if (context.user) {
@@ -156,7 +159,9 @@ const resolvers = {
     },
     addProduct: async (parent, { name, description, image, price, quantity, category }, context) => {
       console.log(context);
+      // const loggedInUserId = context.loggedInUserId;
       if (context.user) {
+        // const product = new Product({
         const product = await Product.create({
            name,
            description,
@@ -167,10 +172,36 @@ const resolvers = {
            seller: context.user._id
         });
 
-        await User.findByIdAndUpdate(context.user._id, { $push: { products: product._id } });
+          // Update the user's products field with the new product's ID
+              await User.findByIdAndUpdate(context.user._id, { $push: { products: product._id } });
+          //  await product.save();
+
         return product;
       }
 
+      throw new AuthenticationError('Not logged in');
+    },
+
+    removeProduct: async (parent, { _id }, context) => { // Correctly using _id here
+      if (context.user) {
+        const product = await Product.findById(_id); // Corrected to _id
+            
+        if (!product) {
+          throw new Error('No product found with this id');
+        }
+      
+        if (String(product.seller) !== String(context.user._id)) {
+          throw new Error('You are not authorized to delete this product');
+        }
+      
+        await Product.findByIdAndRemove(_id);
+      
+        // remove the product from the user's products list
+        await User.findByIdAndUpdate(context.user._id, { $pull: { products: _id } });
+      
+        return product;
+      }
+      
       throw new AuthenticationError('Not logged in');
     },
     
