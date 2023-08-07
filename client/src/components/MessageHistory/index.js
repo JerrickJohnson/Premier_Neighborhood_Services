@@ -34,8 +34,7 @@ function MessageHistory() {
 
   const handleUserClick = (userId, productId) => {
     setSelectedUser(userId);
-    if (productId) setProductId(productId);
-    else setProductId(null); 
+    setProductId(productId);
   };
 
   return (
@@ -47,7 +46,11 @@ function MessageHistory() {
               <li 
                   key={product._id}
                   onClick={() => handleUserClick(userItem._id, product._id)}
-                  className={`list-group-item d-flex align-items-center ${userItem._id === selectedUser ? 'active' : ''}`}
+                  className={`list-group-item d-flex align-items-center 
+                      ${userItem._id === selectedUser && product._id === selectedProductId ? 'active' : ''}`} 
+                  style={{cursor: 'pointer', border: '2px solid transparent', transition: 'border-color 0.2s'}}
+                  onMouseEnter={e => e.target.style.borderColor = '#333'} // change border color on hover
+                  onMouseLeave={e => e.target.style.borderColor = 'transparent'} // revert to transparent on mouse leave
               >
                   <img src={`/images/${product.image}`} alt={product.name} width="100" height="100"/>
                   <div className="ml-3">
