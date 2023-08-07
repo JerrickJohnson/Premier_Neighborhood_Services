@@ -21,7 +21,13 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
     "env": "^0.0.2",
+<<<<<<< HEAD
     "react-bootstrap": "^2.8.0",
     "react-router-dom": "^6.14.2"
+=======
+    "jquery": "^3.7.0",
+    "popper.js": "^1.16.1",
+    "react-bootstrap": "^2.8.0"
+>>>>>>> 80788b80d67ee2d4468daa9a0799b813873d621d
   }
 }

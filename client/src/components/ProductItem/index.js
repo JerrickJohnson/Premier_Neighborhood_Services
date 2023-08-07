@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { pluralize } from "../../utils/helpers"
+import { pluralize } from "../../utils/helpers";
 import { useStoreContext } from "../../utils/GlobalState";
-import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
-import { idbPromise } from "../../utils/helpers";
+import { ADD_MESSAGE } from "../../utils/actions";
+import { useMutation } from '@apollo/client';
+import { SEND_MESSAGE } from '../../utils/mutations';
+import { Modal, Button } from 'react-bootstrap';
 import './style.css';
-
 
 function ProductItem(item) {
   const [state, dispatch] = useStoreContext();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [offerValue, setOfferValue] = useState('');
+  const [showModal, setShowModal] = useState('');  // "", "offerSent", "notLoggedIn", "missingSeller"
+  const [sendMessage] = useMutation(SEND_MESSAGE);
 
   const {
     image,
@@ -20,69 +25,125 @@ function ProductItem(item) {
     seller
   } = item;
 
-  const { cart } = state
+  const openModal = () => {
+    setOfferValue(price);
+    setModalOpen(true);
+  };
 
-  const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id)
-    if (itemInCart) {
-      dispatch({
-        type: UPDATE_CART_QUANTITY,
-        _id: _id,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
-      idbPromise('cart', 'put', {
-        ...itemInCart,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
-    } else {
-      dispatch({
-        type: ADD_TO_CART,
-        product: { ...item, purchaseQuantity: 1 }
-      });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleOfferChange = (event) => {
+    setOfferValue(event.target.value);
+  };
+
+  const sendOffer = async () => {
+    const offerMessage = {
+      content: `I would like to buy your ${name} - ${description} for $${offerValue}.`,
+      sender: state.user.data._id,
+      receiver: seller._id,
+      product: _id,
+      timestamp: Date.now(),
+      isOffer: true
+    };
+
+    if (!state.user) {
+      setShowModal('notLoggedIn');
+      return;
     }
-  }
+
+    if (!seller || !seller._id) {
+      setShowModal('missingSeller');
+      return;
+    }
+
+    try {
+      const { data } = await sendMessage({
+        variables: {
+          sender: offerMessage.sender,  
+          receiver: offerMessage.receiver,
+          product: offerMessage.product,  
+          messageText: offerMessage.content
+        }
+      });
+
+      const savedMessage = data.sendMessage;
+      dispatch({
+        type: ADD_MESSAGE,
+        message: savedMessage
+      });
+
+      setModalOpen(false);
+      setOfferValue('');
+      setShowModal('offerSent');
+
+    } catch (error) {
+      console.error('Error sending offer:', error);
+    }
+  };
 
   return (
     <div className="card px-1 py-1">
       <Link to={`/products/${_id}`}>
-        <img
-          alt={name}
-          src={`/images/${image}`}
-        />
+        <img alt={name} src={`/images/${image}`} />
         <p>{name}</p>
       </Link>
       <div>
         <div>{quantity} {pluralize("item", quantity)} in stock</div>
         <span>${price}</span>
       </div>
-      <button onClick={addToCart}>Make Offer</button>
+      <Button onClick={openModal}>Make Offer</Button>
+
+      <Modal show={showModal === "offerSent"} onHide={() => setShowModal('')}>
+        <Modal.Header closeButton>
+          <Modal.Title>Offer Sent</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Your offer has been sent to the seller!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal('')}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModal === "notLoggedIn"} onHide={() => setShowModal('')}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login Required</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You must be logged in to make an offer.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal('')}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModal === "missingSeller"} onHide={() => setShowModal('')}>
+        <Modal.Header closeButton>
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Seller information is missing. Cannot send offer.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal('')}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={isModalOpen} onHide={closeModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Enter Your Offer</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <input 
+            type="number" 
+            value={offerValue} 
+            onChange={handleOfferChange} 
+            className="form-control" 
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={sendOffer}>Send Offer</Button>
+          <Button variant="secondary" onClick={closeModal}>Cancel</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
-
-//   return (
-//     <div className="card mb-3" style={{width: '80%', marginBottom: '20px', border: '1px solid #ccc', padding: '10px'}}>
-//   <div className="row g-0">
-//     <div className="col-md-4">
-//     <Link to={`/products/${_id}`}>
-//       <img src={`/images/${image}`} className="img-fluid rounded-start" alt={name}></img>
-//       </Link>
-//     </div>
-//     <div className="col-md-8">
-//       <div className="card-body">
-//         <h5 className="card-title">{name}</h5>
-//         <p className="card-text">{description}</p>
-//         <p className="card-text">{seller}</p>
-//         {/* <p className="card-text">{quantity} {pluralize("item", quantity)} available</p> */}
-//         <p className="card-text"><small className="text-body-secondary">${price}</small></p>
-//         <button onClick={addToCart}>Buy Item</button>
-//       </div>
-//     </div>
-//   </div>
-// </div>
-//   );
-    
-
 }
 
 export default ProductItem;

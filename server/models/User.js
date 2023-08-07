@@ -27,8 +27,14 @@ const userSchema = new Schema({
   orders: [Order.schema],
   dues: {
     type: Number,
-    default: 0,
+    default: 500,
   },
+  products: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Product'
+    }
+  ],
   profileImage: {
     type: String,
     default: ''
@@ -55,6 +61,12 @@ const userSchema = new Schema({
       required: false, //update to true later
     },
   },
+  contacts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
 });
 
 // set up pre-save middleware to create password

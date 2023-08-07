@@ -14,8 +14,8 @@ const typeDefs = gql`
     quantity: Int
     price: Float
     category: Category
-    createdBy: User
-    PurchasedBy: User
+    seller: User
+    purchasedBy: User
   }
 
   type Order {
@@ -38,6 +38,8 @@ const typeDefs = gql`
     address: String
     outstandingDues: Float
     paidDues: Float
+    products: [Product]
+    messages: [Message] # Add this field to include the messages associated with the user
   }
 
   type Checkout {
@@ -55,7 +57,7 @@ const typeDefs = gql`
     description: String
     date: String
     location: String
-    host: User
+    host: [User]
     attendees: [User]
     isPublic: Boolean
     likes: Int
@@ -78,6 +80,15 @@ const typeDefs = gql`
     image: String
   }
 
+  type Message {
+    _id: ID
+    sender: User
+    receiver: User
+    messageText: String
+    createdAt: String
+    product: Product!
+  }
+
   input ProductInput {
     _id: ID
     purchaseQuantity: Int
@@ -96,7 +107,11 @@ const typeDefs = gql`
     checkout(products: [ProductInput]): Checkout
     events: [Events]
     services: [Service]
-  }
+    sellerProducts(sellerId: ID!): [Product]
+    messages(sender: ID!, receiver: ID!, product: ID): [Message]
+    messageHistory(user: ID!): [User]
+    productMessages(product: ID!): [Message]
+}
 
   type Mutation {
     addUser(
@@ -122,12 +137,11 @@ const typeDefs = gql`
       emergencyContactPhoneNumber: String
     ): User
     addOrder(products: [ID]!): Order
-    addEvent(name: String!, date: String!, description: String!, attendees: Int!): Events
+    addEvent(name: String, date: String, description: String, location: String): Events
     addReview(reviewText: String!, rating: Int!, service: ID!): Service
     addService(name: String!, rating: Int!, category: String!, image: String!): Service
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
-    # Add the addProduct mutation
     addProduct(
       name: String!,
       description: String!,
@@ -135,11 +149,11 @@ const typeDefs = gql`
       price: Float!,
       quantity: Int!, 
       category: String!
-      seller: String!
+      seller: ID!
     ): Product
+    removeProduct(_id: ID!): Product  
+    sendMessage(sender: ID!, receiver: ID!, messageText: String!, product: ID!): Message
   }
-
 `;
-
 
 module.exports = typeDefs;

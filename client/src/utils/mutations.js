@@ -58,7 +58,7 @@ mutation Mutation(
     $price: Float!, 
     $quantity: Int!, 
     $category: String!, 
-    $seller: String!
+    $seller: ID!    
   ) {
   addProduct(
     name: $name, 
@@ -115,29 +115,13 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_EVENT = gql`
-  mutation addEvent(
-    $name: String!
-    $description: String!
-    $date: String!
-    $location: String!
-    $host: String!
-    $isPublic: Boolean
-  ) {
-    addEvent(
-      name: $name
-      description: $description
-      date: $date
-      location: $location
-      host: $host
-      isPublic: $isPublic
-    ) {
-      _id
+  mutation addEvent($name: String!, $date: String!, $description: String!, $location: String) {
+    addEvent(name: $name, date: $date, description: $description, location: $location) {
       name
-      description
       date
       location
-      host
-      isPublic
+      description
+      _id
     }
   }
 `;
@@ -209,9 +193,31 @@ export const REMOVE_ATTENDEE = gql`
   }
 `;
 
-export const CREATE_PAYMENT = gql`
-  mutation CreatePayment($user: ID!, $amount: Float!, $paymentMethod: String!, $paymentPurpose: String!) {
-    createPayment(user: $user, amount: $amount, paymentMethod: $paymentMethod, paymentPurpose: $paymentPurpose) {
+export const CREATE_CHECKOUT_SESSION = gql`
+  mutation checkout($id: ID!) {
+    checkout(id: $id) {
+      session
+    }
+  }
+`;
+
+export const ADD_PAYMENT = gql`
+  mutation addPayment(
+    $userId: ID!,
+    $amount: Float!,
+    $paymentMethod: String!,
+    $paymentDate: String!,
+    $paymentPurpose: String!,
+    $status: String!
+  ) {
+    addPayment(
+      userId: $userId,
+      amount: $amount,
+      paymentMethod: $paymentMethod,
+      paymentDate: $paymentDate,
+      paymentPurpose: $paymentPurpose,
+      status: $status
+    ) {
       _id
       user {
         _id
@@ -226,7 +232,7 @@ export const CREATE_PAYMENT = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $dues: Float!) {
+  mutation updateUser($id: ID!, $dues: Int!) {
     updateUser(id: $id, dues: $dues) {
       _id
       dues
@@ -244,4 +250,29 @@ export const GET_USER = gql`
       dues
     }
   }
+`;
+
+export const SEND_MESSAGE = gql`
+  mutation sendMessage($sender: ID!, $receiver: ID!, $messageText: String!, $product: ID!) {
+    sendMessage(sender: $sender, receiver: $receiver, messageText: $messageText, product: $product) {
+      _id
+      sender {
+        _id
+      }
+      receiver {
+        _id
+      }
+      messageText
+      createdAt
+    }
+  }
+`;
+
+
+export const REMOVE_PRODUCT = gql`
+  mutation RemoveProduct($_id: ID!) {
+  removeProduct(_id: $_id) {
+    _id
+  }
+}
 `;

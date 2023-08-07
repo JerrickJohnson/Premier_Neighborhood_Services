@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ProductList from "../components/ProductList";
 import CategoryMenu from "../components/CategoryMenu";
-import Cart from "../components/Cart";
+// import Cart from "../components/Cart";
 
 const Marketplace = () => {
   return (
@@ -12,7 +12,7 @@ const Marketplace = () => {
       </Link>
       <CategoryMenu />
       <ProductList />
-      <Cart />
+      {/* <Cart /> */}
     </div>
   );
 };

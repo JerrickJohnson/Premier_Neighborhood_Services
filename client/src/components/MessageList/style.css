@@ -1,0 +1,17 @@
+.message-box {
+    display: inline-flex;
+    flex-direction: column;
+    max-width: 80%;  
+    min-width: 20%;  
+    border-radius: 30px !important; 
+    padding: 5px 15px 3px 15px  !important; /* Combining padding-top and -bottom with -left and -right */
+}
+
+.bg-lightgrey {
+    background-color: #797373 !important;  
+    color: white !important;  
+}
+
+.timestamp {
+    margin: 0 !important; 
+}
