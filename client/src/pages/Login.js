@@ -34,6 +34,10 @@ const yourImage = ('images/Corktown_101.jpg')
 
 const style = {
   backgroundImage: `url(${yourImage})`,
+  font: "Arial",
+  fontSize: "30px",
+  fontStyle: "bold",
+  color: "lightblue",
   backgroundSize: "cover",
   height: "1000px",
   width: "2000px"
