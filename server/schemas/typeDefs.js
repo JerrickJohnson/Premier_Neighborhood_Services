@@ -15,7 +15,7 @@ const typeDefs = gql`
     price: Float
     category: Category
     seller: User
-    PurchasedBy: User
+    purchasedBy: User
   }
 
   type Order {
@@ -86,7 +86,7 @@ const typeDefs = gql`
     receiver: User
     messageText: String
     createdAt: String
-    product: Product
+    product: Product!
   }
 
   input ProductInput {

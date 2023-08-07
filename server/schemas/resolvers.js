@@ -121,18 +121,35 @@ const resolvers = {
           throw new Error('Error fetching messages.');
       }
   },
-    messageHistory: async (_, { user }) => {
-      const users = await Message.find({
+  messageHistory: async (_, { user }) => {
+    const messages = await Message.find({
         $or: [{ sender: user }, { receiver: user }],
-      })
-        .populate('sender')
-        .populate('receiver')
-        .sort({ createdAt: -1 });
+    })
+    .populate('sender')
+    .populate('receiver')
+    .populate('product')  
+    .sort({ createdAt: -1 });
 
-      return users.map(message =>
-        message.sender._id.toString() === user ? message.receiver : message.sender
-      );
-    },
+    const usersWithProducts = {};
+
+    messages.forEach(message => {
+        const otherUser = message.sender._id.toString() === user ? message.receiver : message.sender;
+        const otherUserId = otherUser._id.toString();
+
+        if (!usersWithProducts[otherUserId]) {
+            usersWithProducts[otherUserId] = {
+                ...otherUser._doc,
+                products: []
+            };
+        }
+
+        if (message.product && !usersWithProducts[otherUserId].products.some(p => p._id.toString() === message.product._id.toString())) {
+            usersWithProducts[otherUserId].products.push(message.product);
+        }
+    });
+
+    return Object.values(usersWithProducts);
+},
     productMessages: async (_, { product }) => {
         return await Message.find({
           product: product
