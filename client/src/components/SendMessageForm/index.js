@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { SEND_MESSAGE } from "../../utils/mutations";
+import { QUERY_PRODUCT_MESSAGES } from '../../utils/queries';  // Import the query for refetching
 
 function SendMessageForm({ senderId, receiverId, productId, socket }) {
   const [messageText, setMessageText] = useState("");
   const [sendMessage] = useMutation(SEND_MESSAGE);
-  console.log("SenderId:", senderId, "ReceiverId:", receiverId);
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      console.log({ sender: senderId, receiver: receiverId, messageText });
       const response = await sendMessage({
         variables: { sender: senderId, receiver: receiverId, messageText, product: productId },
-    });
+        refetchQueries: [{ query: QUERY_PRODUCT_MESSAGES, variables: { product: productId } }],  // Add the refetchQueries option
+      });
 
       // If the message was sent successfully and we have a socket connection, emit the message
       if (response && socket) {
