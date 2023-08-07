@@ -8,7 +8,7 @@ const Marketplace = () => {
   return (
     <div className="container">
       <Link to={`/AddItem`}>
-      <button type="button" className="btn btn-primary btn-lg">Sell Item</button>
+      <button type="button" className="btn btn-primary btn-lg">Post Item</button>
       </Link>
       <CategoryMenu />
       <ProductList />

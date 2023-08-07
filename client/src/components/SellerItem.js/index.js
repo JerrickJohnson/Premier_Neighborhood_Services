@@ -44,19 +44,21 @@ return (
 
     <div className="sellcard">
     <div className="row no-gutters">
-      <div className="col-md-4">
-        <img src={`/images/${image}`} className="card-img" alt="" />
+    <div className="col-md-4 image-container">
+    <Link to={`/products/${_id}`}>
+        <img src={`/images/${image}`} className="card-img2" alt="" />
+        </Link>
       </div>
-      <div className="col-md-8">
+      <div className="">
         <div className="card-body text-left">
-          <h5 className="card-title">{name}</h5>
+          <li className="card-title mt-2">{name}</li>
           {/* <p className="card-text">{description}</p> */}
-          <ul className="list-group list-group-flush">
-            <li className="card-title">Price:$ {price}</li>
-          </ul>
+          <div className="list-group list-group-flush">
+            <li className="mt-2">Price: ${price}</li>
+          </div>
           <div className="mt-2">
           <a onClick={removeItem} href="#" className="btn btn-primary mr-2">Remove Item</a>
-            <a href="#" className="btn btn-primary">Go To Messages</a>
+          <Link to="/message" className="btn btn-primary">Go To Messages</Link>
           </div>
         </div>
       </div>
