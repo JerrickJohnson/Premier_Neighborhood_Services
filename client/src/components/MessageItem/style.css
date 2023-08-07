@@ -2,12 +2,12 @@
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
-    width: 60%; /* adjust this based on your design */
+    width: 60%; 
 }
 
 .current-user {
-    background-color: #e6f7ff; /* light blue */
-    margin-left: auto; /* aligns the message to the right */
+    background-color: #e6f7ff; 
+    margin-left: auto; 
 }
 
 .sender-name {

@@ -174,11 +174,17 @@ export const QUERY_MESSAGES = gql`
 `;
 
 export const QUERY_MESSAGE_HISTORY = gql`
-  query getMessageHistory($user: ID!) {
+  query GetMessageHistory($user: ID!) {
     messageHistory(user: $user) {
       _id
       firstName
       lastName
+      products {   
+        _id     
+        name
+        description
+        image
+      }
     }
   }
 `;
