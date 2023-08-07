@@ -98,6 +98,7 @@ function AddProductForm() {
 
   return (
     <div>
+      <h2>Post Item Here:</h2>
       {/* prevent redirecting to a new page on submit */}
       <iframe name="dummyframe" id="dummyframe" style={{display: 'none'}}></iframe>
       <form action="/api/add-product" name="theForm" method="post" encType='multipart/form-data' target="dummyframe">
@@ -182,7 +183,7 @@ function AddProductForm() {
           />
         </div>
 
-        <button type="submit" onClick={handleFormSubmit}>Add Product</button>
+        <button type="submit" onClick={handleFormSubmit}>Add Item</button>
       </form>
     </div>
   );
