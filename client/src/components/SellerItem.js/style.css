@@ -1,10 +1,29 @@
-  .sellcard {
-    width: 18rem;
-    width: 100%;; 
-    height: 50%; 
-    text-align: left;
-    box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
-	  border-radius: 10px;
-	  border: 3px solid #305A72;
-    margin: 1%;
-  }
+.sellcard {
+  width: 100%; 
+  height: 50%; 
+  text-align: left;
+  box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  border: 3px solid #305A72;
+  margin: 1%;
+}
+
+
+  .sellcard .card-img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.btn-primary {
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.25rem 1rem;
+  border-radius: .5rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0 1px;
+  background-color: green;
+}

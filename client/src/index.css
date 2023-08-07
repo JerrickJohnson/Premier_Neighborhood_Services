@@ -112,16 +112,16 @@ button[disabled] {
   opacity: .8;
 }
 
-img {
+/* img {
   max-width: 100%;
-}
+} */
 
 
 
-.image {
+/* .image {
   position: absolute;
   right: 0;
-}
+} */
 
 .center {
   display: flex;
@@ -214,10 +214,10 @@ input:focus {
   padding-bottom: var(--spacing-two);
 }
 
-.card {
+/* .card {
   width: 25%;
   text-align: center;
-}
+} */
 
 .error-text {
   color: var(--error);

@@ -52,7 +52,7 @@ return (
           <h5 className="card-title">{name}</h5>
           {/* <p className="card-text">{description}</p> */}
           <ul className="list-group list-group-flush">
-            <li className="list-group-item">Price: ${price}</li>
+            <li className="card-title">Price:$ {price}</li>
           </ul>
           <div className="mt-2">
           <a onClick={removeItem} href="#" className="btn btn-primary mr-2">Remove Item</a>

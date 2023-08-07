@@ -4,3 +4,13 @@
     width: fit-content;
     object-fit: cover;
   }
+
+  .card {
+  width: 25%;
+  text-align: center;
+}
+
+.image {
+  position: absolute;
+  right: 0;
+}
