@@ -105,6 +105,7 @@ const typeDefs = gql`
     user: User
     order(_id: ID!): Order
     checkout(products: [ProductInput]): Checkout
+    event(_id:ID!): Events
     events: [Events]
     services: [Service]
     sellerProducts(sellerId: ID!): [Product]
@@ -140,6 +141,7 @@ const typeDefs = gql`
     addEvent(name: String, date: String, description: String, location: String): Events
     addReview(reviewText: String!, rating: Int!, service: ID!): Service
     addService(name: String!, rating: Int!, category: String!, image: String!): Service
+    updateEvent(_id: ID!, name: String, date: String, description: String, location: String): Events
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
     addProduct(
