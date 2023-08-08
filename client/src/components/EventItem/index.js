@@ -29,6 +29,8 @@ const EventItem = (item) => {
             const { data } = await editEvent({
                 variables: { id: id, attendees: newAttendees }
             });
+
+            window.location.reload();
         } catch (err) {
             console.error(err);
         }
