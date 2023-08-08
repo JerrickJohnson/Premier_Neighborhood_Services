@@ -12,10 +12,35 @@ export const QUERY_PRODUCTS = gql`
       category {
         _id
       }
+      seller {
+        _id
+        firstName
+        lastName
+      }
     }
   }
 `;
 
+export const QUERY_SELLER_PRODUCTS = gql`
+  query getSellerProducts($sellerId: ID!) {
+    sellerProducts(sellerId: $sellerId) {
+      _id
+      name
+      description
+      price
+      quantity
+      image
+      category {
+        _id
+      }
+      seller {
+        _id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
 export const QUERY_CHECKOUT = gql`
   query getCheckout($products: [ProductInput]) {
     checkout(products: $products) {
@@ -124,6 +149,62 @@ export const QUERY_USER_PAYMENTS = gql`
       paymentDate
       paymentPurpose
       status
+    }
+  }
+`;
+
+export const QUERY_MESSAGES = gql`
+  query getMessages($sender: ID!, $receiver: ID!, $product: ID) {
+    messages(sender: $sender, receiver: $receiver, product: $product) {
+      _id
+      sender {
+        _id
+        firstName
+        lastName
+      }
+      receiver {
+        _id
+        firstName
+        lastName
+      }
+      messageText
+      createdAt
+    }
+  }
+`;
+
+export const QUERY_MESSAGE_HISTORY = gql`
+  query GetMessageHistory($user: ID!) {
+    messageHistory(user: $user) {
+      _id
+      firstName
+      lastName
+      products {   
+        _id     
+        name
+        description
+        image
+      }
+    }
+  }
+`;
+
+export const QUERY_PRODUCT_MESSAGES = gql`
+  query getProductMessages($product: ID!) {
+    productMessages(product: $product) {
+      _id
+      sender {
+        _id
+        firstName
+        lastName
+      }
+      receiver {
+        _id
+        firstName
+        lastName
+      }
+      messageText
+      createdAt
     }
   }
 `;

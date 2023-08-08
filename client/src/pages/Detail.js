@@ -91,25 +91,26 @@ function Detail() {
 
           <p>{currentProduct.description}</p>
 
-          <p>
+          {/* <p> */}
             <strong>Price:</strong>${currentProduct.price}{' '}
-            <button onClick={addToCart}>Add to Cart</button>
+            {/* <button onClick={addToCart}>Add to Cart</button>
             <button
               disabled={!cart.find((p) => p._id === currentProduct._id)}
               onClick={removeFromCart}
             >
               Remove from Cart
             </button>
-          </p>
-
+          </p> */}
+          <div>
           <img
             src={`/images/${currentProduct.image}`}
-            alt={currentProduct.name}
+            alt={currentProduct.name}   
           />
+          </div>
         </div>
       ) : null}
       {loading ? <img src={spinner} alt="loading" /> : null}
-      <Cart />
+      {/* <Cart /> */}
     </>
   );
 }

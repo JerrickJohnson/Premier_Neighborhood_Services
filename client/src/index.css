@@ -1,6 +1,6 @@
 :root {
   --primary: #232F3E;
-  --secondary: #F3A847;
+  --secondary: #46da41;
   --tertiary: #B12704;
   --light: #fafafa;
   --dark: #272f32;
@@ -116,6 +116,8 @@ img {
   max-width: 100%;
 }
 
+
+
 .image {
   position: absolute;
   right: 0;
@@ -135,7 +137,13 @@ span[role="img"] {
 }
 
 form {
-  width: 40%;
+  width: 60%;
+  box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  border: 3px solid #305A72;
+  padding: 2.5rem;
+  margin-top: 2rem;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 input {
@@ -213,8 +221,11 @@ input:focus {
 }
 
 .card {
-  width: 25%;
+  width: 20%;
   text-align: center;
+  box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  border: 3px solid #305A72;
 }
 
 .error-text {
@@ -226,3 +237,4 @@ input:focus {
     width: 100%;
   }
 }
+

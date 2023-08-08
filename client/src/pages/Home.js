@@ -4,12 +4,7 @@ import HomePage from "../components/HomePage";
 
 const Home = () => {
   return (
-    <div className="container">
-      {/* <CategoryMenu />
-      <ProductList /> */}
-      <HomePage />
-      {/* <Cart /> */}
-    </div>
+      <HomePage /> 
   );
 };
 
