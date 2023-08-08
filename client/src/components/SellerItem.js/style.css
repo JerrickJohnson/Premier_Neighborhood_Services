@@ -1,10 +1,34 @@
-  .sellcard {
-    width: 18rem;
-    width: 100%;; 
-    height: 50%; 
-    text-align: left;
-    box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
-	  border-radius: 10px;
-	  border: 3px solid #305A72;
-    margin: 1%;
-  }
+.sellcard {
+  width: 100%; 
+  height: auto; 
+  /* text-align: left; */
+  box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  border: 3px solid #305A72;
+  margin: 1%;
+  overflow: hidden; 
+}
+.sellcard .card-img {
+  object-fit: contain;
+  max-width: 100%;
+  height: auto; 
+}
+
+.sellcard .image-container {
+  width: 100%; 
+}
+
+.sellcard .card-title {
+  font-size: 1.5rem;
+}
+
+.mt-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem; 
+}
+
+
+
+
