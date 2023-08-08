@@ -103,7 +103,7 @@ const typeDefs = gql`
     categories: [Category]
     products(category: ID, name: String): [Product]
     product(_id: ID!): Product
-    user: User
+    user(id: ID!): User
     order(_id: ID!): Order
     checkout(products: [ProductInput]): Checkout
     event(_id:ID!): Events
@@ -162,7 +162,7 @@ const typeDefs = gql`
     removeProduct(_id: ID!): Product  
     sendMessage(sender: ID!, receiver: ID!, messageText: String!, product: ID!): Message
     checkout(id: ID!): Checkout
-    updateUserDues(id: ID!, dues: Float!): User
+    updateUserDues(id: ID!, Dues: Float!): User
     addPayment(
       userId: ID!,
       amount: Float!,

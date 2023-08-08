@@ -79,7 +79,7 @@ export const QUERY_USER = gql`
       _id
       firstName
       lastName
-      dues
+      Dues
       orders {
         _id
         purchaseDate
@@ -146,7 +146,7 @@ export const QUERY_USER_PAYMENT_INFO = gql`
       firstName
       lastName
       address
-      dues
+      Dues
     }
   }
 `;
