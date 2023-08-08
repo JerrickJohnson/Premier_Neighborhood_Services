@@ -23,6 +23,7 @@
     "env": "^0.0.2",
     "jquery": "^3.7.0",
     "popper.js": "^1.16.1",
-    "react-bootstrap": "^2.8.0"
+    "react-bootstrap": "^2.8.0",
+    "styled-components": "^6.0.7"
   }
 }

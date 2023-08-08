@@ -102,6 +102,9 @@ const resolvers = {
       }
       return { session: session.id };
     },
+    event: async (parent, { _id }) => {
+      return await Events.findById(_id);
+    },
     events: async () => {
       return await Events.find();
     },
@@ -265,6 +268,13 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in!');
+    },
+    updateEvent: async (parent, args,context) => {
+      if (context.user) {
+        return await Events.findByIdAndUpdate(args._id, args, { new: true });
+      }
+
+      throw new AuthenticationError('Not logged in');
     },
     updateUser: async (parent, args, context) => {
       if (context.user) {

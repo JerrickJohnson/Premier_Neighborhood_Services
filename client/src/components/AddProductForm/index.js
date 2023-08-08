@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useQuery } from '@apollo/client';
 import { ADD_PRODUCT } from '../../utils/mutations'; // Your mutation query
-import { QUERY_CATEGORIES } from '../../utils/queries';
+import { QUERY_CATEGORIES, QUERY_SELLER_PRODUCTS } from '../../utils/queries';
 import Auth from '../../utils/auth';
+import { useLazyQuery } from '@apollo/client';
 import './style.css';
 
 
@@ -30,6 +31,7 @@ function AddProductForm() {
   // Add the mutation to the component
 
   const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
+  
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
