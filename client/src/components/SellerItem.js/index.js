@@ -56,9 +56,9 @@ return (
           <div className="list-group list-group-flush">
             <li className="mt-2">Price: ${price}</li>
           </div>
-          <div className="mt-2">
-          <a onClick={removeItem} href="#" className="btn btn-primary mr-2">Remove Item</a>
-          <Link to="/message" className="btn btn-primary">Go To Messages</Link>
+          <div className="my-3 row justify-content-center">
+            <a onClick={removeItem} href="#" className="btn btn-primary mr-2 col-5">Remove Item</a>
+            <Link to="/message" className="btn btn-primary col-5">Go To Messages</Link>
           </div>
         </div>
       </div>
