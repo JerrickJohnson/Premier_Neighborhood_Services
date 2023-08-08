@@ -16,7 +16,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/images')
+    cb(null, '../client/public/images')
   },
   filename: (req, file, cb) => {
     console.log(file)
@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
 });
 
 //MULTER REST ROUTE - TEST OBJECT DATA STILL
-app.post('/api/add-product', upload, async (req,res) => {
+app.post('https://quiet-escarpment-66655-0aff3ec3178e.herokuapp.com/api/add-product', upload, async (req,res) => {
   const newProductData = {
     name: req.body.name,
     price: req.body.price,
