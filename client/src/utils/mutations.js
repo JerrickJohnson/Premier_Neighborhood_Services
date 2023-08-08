@@ -231,6 +231,14 @@ export const ADD_PAYMENT = gql`
   }
 `;
 
+export const EDIT_EVENT = gql`
+  mutation editEvent($id: ID!, $attendees: Int!) {
+    editEvent(id: $id, attendees: $attendees) {
+      attendees
+    }
+  }
+`;
+
 export const UPDATE_USER = gql`
   mutation updateUser($id: ID!, $dues: Int!) {
     updateUser(id: $id, dues: $dues) {

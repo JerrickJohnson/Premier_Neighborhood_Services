@@ -200,7 +200,7 @@ db.once('open', async () => {
   //   },
   // ]);
 
-  console.log('users seeded');
+  // console.log('users seeded');
 
   await Events.deleteMany();
 
@@ -210,18 +210,21 @@ db.once('open', async () => {
       description: 'Join us for a fun and relaxing community picnic at the central park',
       date: '2023-08-15 12:00:00',
       location: 'Central Park',
+      attendees: 5,
     },
     {
       name: 'Neighborhood Cleanup',
       description: 'We are organizing a neighborhood cleanup. Come lend a hand and make our community even more beautiful!',
       date: '2023-08-22 09:00:00',
       location: 'Front Gate',
+      attendees: 10,
     },
     {
       name: 'Local Concert',
       description: 'A local band will be performing live at the community center',
       date: '2023-09-01 19:00:00',
       location: 'Community Center',
+      attendees: 50,
     }
   ]);
 

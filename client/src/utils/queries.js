@@ -104,6 +104,7 @@ query event($id: ID!) {
     location
     description
     date
+    attendees
   }
 }
 `;
@@ -111,11 +112,12 @@ query event($id: ID!) {
 export const QUERY_EVENTS = gql`
   {
     events {
+      _id
       name
       location
       description
       date
-      _id
+      attendees
     }
   }
 `;

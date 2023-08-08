@@ -13,15 +13,17 @@ function NewEventForm() {
         const description = document.getElementById('description').value;
         const date = document.getElementById('date').value + " " + document.getElementById('time').value;
         const location = document.getElementById('location').value;
+
+        console.log(name, description, date, location);
         
         try {
             const { data } = await addEvent({
             variables: { name, description, date, location }
-        });
-            } catch (err) {
+            });
+        } catch (err) {
                 console.error(err);
-            }   
-        };
+        }   
+    };
 
     return (
         <div className="container">
