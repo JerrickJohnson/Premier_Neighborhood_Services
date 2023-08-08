@@ -111,6 +111,12 @@ const resolvers = {
     services: async () => {
       return await Service.find().populate('review');
     },
+    payments: async () => {
+      return await Payment.find().populate('user');
+    },
+    userPayments: async (parent, { userId }, context) => {
+      return await Payment.find({ user: userId }).populate('user');
+    },
     messages: async (_, { sender, receiver, product }) => {
       console.log(`Sender: ${sender}, Receiver: ${receiver}, Product: ${product}`);
       try {
@@ -124,6 +130,7 @@ const resolvers = {
           throw new Error('Error fetching messages.');
       }
   },
+  
   messageHistory: async (_, { user }) => {
     const messages = await Message.find({
         $or: [{ sender: user }, { receiver: user }],

@@ -37,9 +37,10 @@ const typeDefs = gql`
     orders: [Order]
     address: String
     outstandingDues: Float
+    Dues: Float
     paidDues: Float
     products: [Product]
-    messages: [Message] # Add this field to include the messages associated with the user
+    messages: [Message]
   }
 
   type Checkout {
@@ -112,7 +113,10 @@ const typeDefs = gql`
     messages(sender: ID!, receiver: ID!, product: ID): [Message]
     messageHistory(user: ID!): [User]
     productMessages(product: ID!): [Message]
-}
+    getUserPaymentInfo(id: ID!): User
+    userPayments(userId: ID!): [Payment]
+    payments: [Payment]
+  }
 
   type Mutation {
     addUser(
@@ -127,6 +131,7 @@ const typeDefs = gql`
       emergencyContactPhoneNumber: String
     ): Auth
     updateUser(
+      id: ID!,
       firstName: String,
       lastName: String,
       email: String,
@@ -135,10 +140,11 @@ const typeDefs = gql`
       dob: String,
       phoneNumber: String,
       emergencyContact: String,
-      emergencyContactPhoneNumber: String
+      emergencyContactPhoneNumber: String,
+      outstandingDues: Float
     ): User
     addOrder(products: [ID]!): Order
-    addEvent(name: String, date: String, description: String, location: String): Events
+    addEvent(name: String!, date: String!, description: String!, location: String!): Events
     addReview(reviewText: String!, rating: Int!, service: ID!): Service
     addService(name: String!, rating: Int!, category: String!, image: String!): Service
     updateEvent(_id: ID!, name: String, date: String, description: String, location: String): Events
@@ -150,11 +156,31 @@ const typeDefs = gql`
       image: String!,
       price: Float!,
       quantity: Int!, 
-      category: String!
+      category: String!,
       seller: ID!
     ): Product
     removeProduct(_id: ID!): Product  
     sendMessage(sender: ID!, receiver: ID!, messageText: String!, product: ID!): Message
+    checkout(id: ID!): Checkout
+    updateUserDues(id: ID!, dues: Float!): User
+    addPayment(
+      userId: ID!,
+      amount: Float!,
+      paymentMethod: String!,
+      paymentDate: String!,
+      paymentPurpose: String!,
+      status: String!
+    ): Payment
+  }
+
+  type Payment {
+    _id: ID
+    user: User
+    amount: Float
+    paymentMethod: String
+    paymentDate: String
+    paymentPurpose: String
+    status: String
   }
 `;
 

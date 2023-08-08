@@ -34,7 +34,7 @@ function ChatInterface({ senderId, receiverId, productId }) {
   }, []);  // Empty dependency array ensures this runs only once when the component mounts
 
   return (
-    <div className="chat-interface mt-4 p-4 border rounded">
+    <div className="chat-interface mt-4 p-4 border rounded" style={{ width: '100%' }}>
       <MessageList 
           senderId={senderId} 
           receiverId={receiverId} 
