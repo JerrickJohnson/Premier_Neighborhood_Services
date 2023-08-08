@@ -269,9 +269,9 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
-    updateEvent: async (parent, args,context) => {
+    editEvent: async (parent, { _id, attendees },context) => {
       if (context.user) {
-        return await Events.findByIdAndUpdate(args._id, args, { new: true });
+        return await Events.findByIdAndUpdate(_id, { $push: { attendees: attendees } }, { new: true });
       }
 
       throw new AuthenticationError('Not logged in');

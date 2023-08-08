@@ -32,10 +32,10 @@ const eventSchema = new Schema({
     type: Schema.Types.ObjectId, 
     ref: 'User'
   },
-  attendees: [{ 
-    type: Schema.Types.ObjectId, 
-    ref: 'User' 
-  }],
+  attendees: { 
+    type: Number,
+    default: 0,
+  },
   isPublic: { 
     type: Boolean, 
     default: true 
