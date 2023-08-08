@@ -9,9 +9,9 @@ function EditEvent(event) {
 
     console.log(id);
 
-    const { loading, data } = useQuery(QUERY_EVENT, id);
+    const { loading, data } = useQuery(QUERY_EVENT, { variables: { id: id }});
 
-    console.log(data);
+    console.log(data.event);
 
     const {
         _id,
@@ -19,7 +19,7 @@ function EditEvent(event) {
         description,
         date,
         location,
-    } = event;
+    } = data.event;
 
     return (
         <div className="container">
@@ -31,19 +31,19 @@ function EditEvent(event) {
                         </div>
                         <div className="form-group">
                             <label htmlFor="name">Event Name</label>
-                            <input type="text" className="form-control" id="name" placeholder="Name" />
+                            <input type="text" className="form-control" id="name" placeholder={name} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="description">Event Description</label>
-                            <input type="text" className="form-control" id="description" placeholder="Description" />
+                            <input type="text" className="form-control" id="description" placeholder={description} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="date">Event Date and Time</label>
-                            <input type="date" className="form-control" id="date" placeholder="Date" />
+                            <input type="date" className="form-control" id="date" placeholder={date} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="location">Event Location</label>
-                            <input type="text" className="form-control" id="location" placeholder="Location" />
+                            <input type="text" className="form-control" id="location" placeholder={location} />
                         </div>
                         <button type="submit" className="btn btn-primary my-2">
                             <Link to="/events" style={{color: "white"}}>Submit</Link>
