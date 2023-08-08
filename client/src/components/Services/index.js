@@ -10,7 +10,7 @@ function RenderImage() {
 
 
   return (
-    <div className="container">
+    <div className="container" >
       <div className="row mt-4 align-items-center">
         <div className="col-md-6">
           <div className="card-body">

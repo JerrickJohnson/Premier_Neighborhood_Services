@@ -41,14 +41,15 @@ function Login(props) {
     });
   };
 
-  const yourImage = 'images/Corktown_101.jpg';
+const yourImage = ('images/Corktown_101.jpg')
 
-  const style = {
-    backgroundImage: `url(${yourImage})`,
-    backgroundSize: "cover",
-    height: "1000px",
-    width: "2000px"
-  };
+const style = {
+  backgroundImage: `url(${yourImage})`,
+  backgroundSize: "cover",
+  height: "1000px",
+  width: "2000px"
+};
+
 
   return (
     <div className="container my-1" style={style}>
