@@ -1,5 +1,4 @@
 import React from "react";
-import { useStoreContext } from "../../utils/GlobalState";
 
 function EventItem(item) {
 
@@ -8,10 +7,10 @@ function EventItem(item) {
         description,
         date,
         location,
-        host,
-        attendees,
-        isPublic,
-        likes
+        // host,
+        // attendees,
+        // isPublic,
+        // likes
     } = item;
 
     return (

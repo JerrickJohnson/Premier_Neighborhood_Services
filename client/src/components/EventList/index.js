@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import EventItem from "../EventItem";
-import { useStoreContext } from "../../utils/GlobalState";
-import { UPDATE_EVENTS } from "../../utils/actions";
 import { useQuery } from '@apollo/client';
 import { QUERY_EVENTS } from '../../utils/queries';
-import { idbPromise } from '../../utils/helpers';
 import spinner from '../../assets/spinner.gif';
 import { Link } from "react-router-dom";
 
