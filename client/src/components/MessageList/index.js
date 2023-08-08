@@ -29,7 +29,7 @@ function MessageList({ senderId, receiverId, productId, onProductClick }) {
   const messages = data.productMessages;
 
   return (
-    <div className="list-group">
+    <div className="list-group" style={{ width: '100%' }}>
       {messages.slice().reverse().map((message) =>
         <MessageItem 
             key={message.id} 

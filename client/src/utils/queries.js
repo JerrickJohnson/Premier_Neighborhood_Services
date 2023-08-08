@@ -96,6 +96,18 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_EVENT = gql`
+query event($id: ID!) {
+  event(_id: $id) {
+    _id
+    name
+    location
+    description
+    date
+  }
+}
+`;
+
 export const QUERY_EVENTS = gql`
   {
     events {

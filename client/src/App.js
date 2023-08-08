@@ -24,6 +24,7 @@ import NewEvent from './pages/NewEvent';
 import PaymentPage from './pages/PaymentPage';
 import ServiceRequests from './pages/ServiceRequests';
 import Message from './pages/Message';
+import EditEventPage from './pages/EditEvent';
 
 
 
@@ -114,6 +115,10 @@ function App() {
                            <Route
                 path="/message"
                 element={<Message />}   
+              />
+              <Route
+                path="/editevent/:id"
+                element={<EditEventPage />}
               />            
             </Routes>
             

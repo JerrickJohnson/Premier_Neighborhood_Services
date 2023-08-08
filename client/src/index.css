@@ -165,6 +165,7 @@ input:focus {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  
 }
 
 .flex-row {
@@ -238,3 +239,22 @@ input:focus {
   }
 }
 
+@media (min-width: 768px) {
+  .post-item-button {
+    position: fixed;
+    bottom: 7%;
+    right: 2%;
+    z-index: 9999; 
+  }
+}
+
+/* For screens smaller than 768px */
+@media (max-width: 767px) {
+  .post-item-button {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin: 20px 0;
+    z-index: 9999; 
+  }
+}

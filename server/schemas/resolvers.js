@@ -102,11 +102,20 @@ const resolvers = {
       }
       return { session: session.id };
     },
+    event: async (parent, { _id }) => {
+      return await Events.findById(_id);
+    },
     events: async () => {
       return await Events.find();
     },
     services: async () => {
       return await Service.find().populate('review');
+    },
+    payments: async () => {
+      return await Payment.find().populate('user');
+    },
+    userPayments: async (parent, { userId }, context) => {
+      return await Payment.find({ user: userId }).populate('user');
     },
     messages: async (_, { sender, receiver, product }) => {
       console.log(`Sender: ${sender}, Receiver: ${receiver}, Product: ${product}`);
@@ -121,6 +130,7 @@ const resolvers = {
           throw new Error('Error fetching messages.');
       }
   },
+  
   messageHistory: async (_, { user }) => {
     const messages = await Message.find({
         $or: [{ sender: user }, { receiver: user }],
@@ -258,6 +268,13 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in!');
+    },
+    updateEvent: async (parent, args,context) => {
+      if (context.user) {
+        return await Events.findByIdAndUpdate(args._id, args, { new: true });
+      }
+
+      throw new AuthenticationError('Not logged in');
     },
     updateUser: async (parent, args, context) => {
       if (context.user) {
