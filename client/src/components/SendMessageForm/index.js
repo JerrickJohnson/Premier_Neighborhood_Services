@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { SEND_MESSAGE } from "../../utils/mutations";
-import { QUERY_PRODUCT_MESSAGES } from '../../utils/queries';  // Import the query for refetching
+import { QUERY_PRODUCT_MESSAGES } from '../../utils/queries';
 
 function SendMessageForm({ senderId, receiverId, productId, socket }) {
   const [messageText, setMessageText] = useState("");
   const [sendMessage] = useMutation(SEND_MESSAGE);
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const response = await sendMessage({
         variables: { sender: senderId, receiver: receiverId, messageText, product: productId },
-        refetchQueries: [{ query: QUERY_PRODUCT_MESSAGES, variables: { product: productId } }],  // Add the refetchQueries option
+        refetchQueries: [{ query: QUERY_PRODUCT_MESSAGES, variables: { product: productId } }],
       });
 
-      // If the message was sent successfully and we have a socket connection, emit the message
       if (response && socket) {
         const message = {
           senderId,
@@ -33,14 +32,15 @@ function SendMessageForm({ senderId, receiverId, productId, socket }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-3">
-      <div className="form-group d-flex">
+    <form onSubmit={handleSubmit} className="mt-3" style={{ width: '100%' }}>
+      <div className="form-group d-flex" style={{ width: '100%' }}>
         <input
           type="text"
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
           className="form-control mr-2"
           placeholder="Type your message..."
+          style={{ flexGrow: 1 }}  // Makes the input grow to occupy available space
         />
         <button type="submit" className="btn btn-primary">
           Send
