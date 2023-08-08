@@ -85,6 +85,7 @@ function ProductItem(item) {
 
   return (
     <div className="card px-1 py-1">
+      <div className="d-flex card-body flex-column">
       <Link to={`/products/${_id}`}>
         <img alt={name} src={`/images/${image}`} />
         <p>{name}</p>
@@ -92,8 +93,11 @@ function ProductItem(item) {
       <div>
         {/* <div>{quantity} {pluralize("item", quantity)} in stock</div> */}
         <span>${price}</span>
+        
       </div>
-      <Button onClick={openModal}>Make Offer</Button>
+      <Button className="mt-auto" onClick={openModal}>Make Offer</Button>
+      </div>
+      
 
       <Modal show={showModal === "offerSent"} onHide={() => setShowModal('')}>
         <Modal.Header closeButton>

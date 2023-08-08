@@ -54,7 +54,13 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.post('/api/add-product', upload, async (req, res) => {
+//wildcard route to avoid issues refreshing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
+//MULTER REST ROUTE - TEST OBJECT DATA STILL
+app.post('/api/add-product', upload, async (req,res) => {
   const newProductData = {
     name: req.body.name,
     price: req.body.price,
