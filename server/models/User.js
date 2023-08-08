@@ -67,6 +67,12 @@ const userSchema = new Schema({
       ref: 'User'
     }
   ],
+  messages: [
+    {
+       type: mongoose.Schema.Types.ObjectId,
+       ref: 'Message'
+    }
+ ]
 });
 
 // set up pre-save middleware to create password
