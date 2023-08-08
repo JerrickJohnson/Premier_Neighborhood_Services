@@ -59,10 +59,10 @@ function Home() {
       {/* New content for HOA section */}
       <div className="col-md-6">
         <h4>Homeowners Association Benefits</h4>
-        <p>
+        <p className="lead">
           Our HOA is committed to ensuring that the beauty, safety, and stability of the area are maintained to the highest standard. Benefits of our HOA include:
         </p>
-        <ul>
+        <ul className="text-muted">
           <li>Community events and gatherings</li>
           <li>Regular maintenance and landscaping</li>
           <li>Dispute resolutions and by-law enforcement</li>
@@ -74,7 +74,7 @@ function Home() {
 
   <div className="row mt-4 align-items-center">
       <div className="col-md-6">
-          <h5>Amenities & Services</h5>
+          <h4>Amenities & Services</h4>
           <p>
               Discover the array of premium amenities offered within our community. From a well-maintained golf course, serene parks, children's play areas, to community services, there's something for everyone.
           </p>
