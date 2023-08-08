@@ -36,11 +36,12 @@ const Payments = () => {
 
   return (
     <div className="payments">
-      <h2>Payments</h2>
+      <h2><strong>Payments</strong></h2>
       <div>
-        <p>Name: {user.firstName} {user.lastName}</p>
-        <p>Address: {user.address}</p>
-        <p>Amount Due: {user.dues}</p>
+        <p><strong>Name:</strong> {user.firstName} {user.lastName}</p>
+        <p><strong>Address:</strong> {user.address}</p>
+        <p><strong>Due Date:</strong> 09/01/2023</p>
+        <p><strong>Amount Due:</strong> $500.00</p>
       </div>
       <button onClick={handleCheckout} disabled={!Auth.loggedIn()}>
         Pay with Stripe Checkout
