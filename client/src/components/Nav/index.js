@@ -50,9 +50,9 @@ function Nav() {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">
       <Link className="navbar-brand" to="/">
-        <span role="img" aria-label="shopping bag"></span> Premier Neighborhood Services
+        <span role="img" aria-label="shopping bag"></span> <h1 className="ml-2">Premier Neighborhood Services</h1>
       </Link>
 
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
